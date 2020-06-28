@@ -35,6 +35,8 @@ scoreboard = [
     },
 ]
 
+def sort_func(val):
+    return val["score"]
 
 @app.route('/')
 def show_scoreboard():
@@ -50,6 +52,8 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+    
+    scoreboard = sorted(scoreboard, reverse=True, key=sort_func)
 
     return jsonify(scoreboard=scoreboard)
 
