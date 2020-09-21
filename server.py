@@ -38,7 +38,7 @@ scoreboard = [
 
 @app.route('/')
 def show_scoreboard():
-    return render_template('scoreboard.html', scoreboard = scoreboard) 
+    return render_template('scoreboard.html', scoreboard = scoreboard)
 
 @app.route('/increase_score', methods=['GET', 'POST'])
 def increase_score():
@@ -46,12 +46,20 @@ def increase_score():
 
     json_data = request.get_json()   
     team_id = json_data["id"]  
-    
-    for team in scoreboard:
-        if team["id"] == team_id:
-            team["score"] += 1
 
-    return jsonify(scoreboard=scoreboard)
+    for i in range(len(scoreboard)):
+        if scoreboard[i]["id"] == team_id:
+            scoreboard[i]["score"] += 1
+
+            # Lower index in scoreboard = higher score
+            # If the team who's score is getting updated has a higher score
+            # than the team above it, swap their positions in the list
+            if i > 0 and scoreboard[i]["score"] > scoreboard[i-1]["score"]:
+                temp = scoreboard[i]
+                scoreboard[i] = scoreboard[i-1]
+                scoreboard[i-1] = temp
+
+    return jsonify(scoreboard)
 
 
 if __name__ == '__main__':
