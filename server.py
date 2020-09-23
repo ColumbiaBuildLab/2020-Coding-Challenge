@@ -35,10 +35,25 @@ scoreboard = [
     },
 ]
 
+def sort(scoreboard):
+    newScore =  []
+    newArr = []
+    for i in range(0, len(scoreboard)):
+
+        newArr.append(scoreboard[i].get("score"))
+    newArr.sort(reverse=True)
+    for i in range(0, len(newArr)):
+        for j in range(0, len(scoreboard)):
+            if scoreboard[j].get("score") == newArr[i]:
+                newScore.append(scoreboard[j])
+    return newScore
+
 
 @app.route('/')
 def show_scoreboard():
-    return render_template('scoreboard.html', scoreboard = scoreboard) 
+    newscoreboard = sort(scoreboard)
+    return render_template('scoreboard.html', scoreboard = scoreboard)
+
 
 @app.route('/increase_score', methods=['GET', 'POST'])
 def increase_score():
@@ -49,7 +64,14 @@ def increase_score():
     
     for team in scoreboard:
         if team["id"] == team_id:
+            obj = team
             team["score"] += 1
+
+    num = scoreboard.index(obj)
+    if(obj["score"] > scoreboard[num - 1].get("score") and (num != 0)):
+        temp = scoreboard[num-1]
+        scoreboard[num-1] = obj
+        scoreboard[num] = temp
 
     return jsonify(scoreboard=scoreboard)
 
