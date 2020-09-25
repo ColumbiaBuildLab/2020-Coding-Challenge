@@ -46,5 +46,3 @@ function increase_score(id){
 $(document).ready(function(){
   display_scoreboard(scoreboard);
 })
-
-
