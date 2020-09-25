@@ -41,6 +41,7 @@ function increase_score(id){
         console.log(error)
     }
   });
+  display_scoreboard(scoreboard);
 }
 
 $(document).ready(function(){
