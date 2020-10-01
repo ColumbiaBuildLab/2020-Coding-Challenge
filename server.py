@@ -41,7 +41,9 @@ def show_scoreboard():
     return render_template('scoreboard.html', scoreboard = scoreboard) 
 
 @app.route('/increase_score', methods=['GET', 'POST'])
-def increase_score():
+def increase_score()
+    # triggered by add button on UI
+    # increment score of team with team_id:
     global scoreboard
 
     json_data = request.get_json()   
@@ -50,6 +52,9 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+
+    # sort by score
+    scoreboard = sorted(scoreboard, key=lambda k: k['score'], reverse=True)
 
     return jsonify(scoreboard=scoreboard)
 
