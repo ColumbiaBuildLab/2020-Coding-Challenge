@@ -42,7 +42,8 @@ scoreboard = [
 @app.route('/')
 def show_scoreboard():
     global scoreboard
-    return render_template('scoreboard.html', scoreboard = sort_scoreboard(scoreboard))
+    scoreboard = sort_scoreboard(scoreboard)
+    return render_template('scoreboard.html', scoreboard = scoreboard)
 
 @app.route('/increase_score', methods=['GET', 'POST'])
 def increase_score():
@@ -55,7 +56,8 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
 
-    return jsonify(scoreboard=sort_scoreboard(scoreboard))
+    scoreboard = sort_scoreboard(scoreboard)
+    return jsonify(scoreboard=scoreboard)
 
 
 if __name__ == '__main__':
