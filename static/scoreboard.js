@@ -1,5 +1,12 @@
 function display_scoreboard(scoreboard){
   $("#teams").empty();
+  scoreboard.sort( function( a , b){
+    aScore=a["score"]
+    bScore=b["score"]
+    if(aScore < bScore) return 1;
+    if(aScore > bScore) return -1;
+    return 0;
+});
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
