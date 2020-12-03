@@ -1,5 +1,6 @@
 function display_scoreboard(scoreboard){
   $("#teams").empty();
+  //I should sort the scoreboard before displaying it
   scoreboard.sort( function( a , b){
     aScore=a["score"]
     bScore=b["score"]
