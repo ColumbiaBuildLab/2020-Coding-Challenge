@@ -24,6 +24,7 @@ function addTeamView(id, name, score){
 }
 
 function increase_score(id){
+  //console.log("Increasing Score");
   var team_id = {"id": id}
   $.ajax({
     type: "POST",
@@ -32,7 +33,9 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        // change front end scoreboard immediately
+        console.log("Scoreboard Change");
+        display_scoreboard(result['scoreboard']);
     },
     error: function(request, status, error){
         console.log("Error");
