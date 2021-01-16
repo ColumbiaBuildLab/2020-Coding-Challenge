@@ -56,9 +56,6 @@ def increase_score():
 
     return jsonify(scoreboard=scoreboard)
 
-    
-
-
 
 if __name__ == '__main__':
    app.run(debug = True)
