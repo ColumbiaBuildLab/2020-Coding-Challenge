@@ -32,8 +32,10 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
+      //call display_scoreboard again with new scoreboard upon success
+      display_scoreboard(result['scoreboard']); 
       //Use window.location.reload() to send new GET request upon success
-      window.location.reload();
+      //window.location.reload();
     },
     error: function(request, status, error){
         console.log("Error");
