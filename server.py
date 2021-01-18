@@ -51,6 +51,14 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
 
+    for i in range(len(scoreboard)):
+        min_score = i
+        for j in range(i+1, len(scoreboard)):
+            if (scoreboard[min_score]['score'] < scoreboard[j]['score']):
+                min_score = j
+
+        scoreboard[i], scoreboard[min_score] = scoreboard[min_score], scoreboard[i]
+
     return jsonify(scoreboard=scoreboard)
 
 
