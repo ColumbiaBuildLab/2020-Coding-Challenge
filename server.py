@@ -1,3 +1,7 @@
+#mt3263
+#Miriam Tuchman
+#mt3263'@'barnard.edu
+
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
