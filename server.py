@@ -5,32 +5,32 @@ app = Flask(__name__)
 
 scoreboard = [
     {
-    "id": 1,
-    "name": "Boston Bruins",
-    "score": 7
+        "id": 1,
+        "name": "Boston Bruins",
+        "score": 7
     },
 
     {
-    "id": 2,
-    "name": "Tampa Bay Lightning",
+        "id": 2,
+        "name": "Tampa Bay Lightning",
         "score": 5
     },
 
     {
-    "id": 3,
-    "name": "Toronto Maple Leafs",
+        "id": 3,
+        "name": "Toronto Maple Leafs",
         "score": 2
     },
 
     {
-    "id": 4,
-    "name": "Florida Panthers",
+        "id": 4,
+        "name": "Florida Panthers",
         "score": 1
     },
 
     {
-    "id": 5,
-    "name": "Buffalo Sabres",
+        "id": 5,
+        "name": "Buffalo Sabres",
         "score": 1
     },
 ]
