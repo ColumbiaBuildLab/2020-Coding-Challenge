@@ -14,6 +14,7 @@ function addTeamView(id, name, score){
   $(increase_button).click(function(){
     increase_score(id);
     location.reload(true);
+    alert('Reloading Page');
   });
   name_template.text(name);
   score_template.text(score);
