@@ -32,7 +32,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+       // reload() method is used to reload the current document and does same as reload button in browser
+       document.location.reload(true); // 'true' is needed to force reload of uncached version (i.e. from server)
     },
     error: function(request, status, error){
         console.log("Error");
