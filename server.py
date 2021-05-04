@@ -3,6 +3,7 @@ from flask import render_template
 from flask import Response, request, jsonify
 app = Flask(__name__)
 
+
 scoreboard = [
     {
     "id": 1,
@@ -50,6 +51,8 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+
+    scoreboard = sorted(scoreboard, key = lambda i: int(i['score']), reverse = True)
 
     return jsonify(scoreboard=scoreboard)
 
