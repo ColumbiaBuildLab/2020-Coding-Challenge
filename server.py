@@ -50,8 +50,8 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
-            
-    #sort the score by descending order
+
+    #sort the scores by descending order
     scoreboard = sorted(scoreboard, key=lambda variable: variable['score'], reverse = True)
 
 
