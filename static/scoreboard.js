@@ -32,7 +32,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-      //display updated scoreboard without refreshing the page
+      //display the updated scoreboard without refreshing the page
       display_scoreboard(result["scoreboard"])
         
     },
