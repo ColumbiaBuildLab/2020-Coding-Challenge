@@ -1,6 +1,7 @@
 function display_scoreboard(scoreboard){
   $("#teams").empty();
   $.each(scoreboard, function(index, team){
+
     addTeamView(team.id, team.name, team.score);
   });
 }
@@ -13,6 +14,7 @@ function addTeamView(id, name, score){
   var increase_button = $("<button class = increase-button>+</button>");
   $(increase_button).click(function(){
     increase_score(id);
+    dynamic_scoreboard(scoreboard);
   });
   name_template.text(name);
   score_template.text(score);
@@ -23,16 +25,29 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
+function dynamic_scoreboard(scoreboard){
+  $.ajax({
+    type: "GET",
+    url: "/"
+  });
+
+  $.ajax({
+    type: "GET",
+    url: "/static/scoreboard.js"
+  });
+
+  $("#teams").load("/");
+}
+
 function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
     type: "POST",
-    url: "increase_score",                
+    url: "increase_score",
     dataType : "json",
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
     },
     error: function(request, status, error){
         console.log("Error");
