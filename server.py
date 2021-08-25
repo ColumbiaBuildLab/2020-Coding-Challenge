@@ -51,7 +51,25 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
 
+    sortByScore(scoreboard)
+
     return jsonify(scoreboard=scoreboard)
+
+def sortByScore(board):
+    '''
+    sortByScore implements insertion sort to sort the teams in a non-decreasing
+    order according to their scores.
+    :param board: the array to be sorted.
+    '''
+
+    for i in range(1, len(board)):
+ 
+        key = board[i]
+        j = i-1
+        while j >= 0 and key["score"] > board[j]["score"] :
+                board[j + 1] = board[j]
+                j -= 1
+        board[j + 1] = key
 
 
 if __name__ == '__main__':
