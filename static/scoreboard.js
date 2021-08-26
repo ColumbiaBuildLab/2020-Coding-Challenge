@@ -11,7 +11,7 @@ function addTeamView(id, name, score){
   var image_template  = $("<img class = col-xs-1 src=/static/team_images/" + name.substring(0, name.indexOf(' ')) + ".png></img>");
   var name_template   = $("<div class = col-md-5></div>");
   var score_template  = $("<div class = col-md-2></div>");
-  var button_template = $("<div class = col-md-2></div>");
+  var button_template = $("<div class=btn-toolbar><div class = col-md-2></div></div>");
   var increase_button = $("<button class = increase-button>+</button>");
   $(increase_button).click(function(){
     increase_score(id);
