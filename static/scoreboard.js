@@ -33,6 +33,10 @@ function increase_score(id){
     data : JSON.stringify(team_id),
     success: function(result){
 
+      //takes the scoreboard and assigns - then displays
+      var scoreboard = result.scoreboard;
+      display_scoreboard(scoreboard);
+      
     },
     error: function(request, status, error){
         console.log("Error");
@@ -44,6 +48,5 @@ function increase_score(id){
 }
 
 $(document).ready(function(){
-  console.log("hey there23")
   display_scoreboard(scoreboard);
 })
