@@ -1,6 +1,5 @@
 function display_scoreboard(scoreboard){
-  $("#teams").empty();
-  sort_scores(scoreboard);  
+  $("#teams").empty(); 
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
@@ -44,12 +43,6 @@ function increase_score(id){
         console.log(error)
     }
   });
-}
-
-function sort_scores(scoreboard){
-  [scoreboard].sort(function(team1, team2){
-    return team1.score - team2.score;
-  })
 }
 
 $(document).ready(function(){
