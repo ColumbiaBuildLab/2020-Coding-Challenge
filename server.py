@@ -56,7 +56,7 @@ def increase_score():
     return jsonify(scoreboard=scoreboard)
 
 
-# sort keys in JSON source by insertion sort on score
+# (B) sort keys in JSON source by insertion sort on score
 def sort_by_score(source):
     for i in range(1, len(source)):
         key = source[i]
@@ -67,10 +67,5 @@ def sort_by_score(source):
         source[j+1] = key
 
 
-
 if __name__ == '__main__':
    app.run(debug = True)
-
-
-
-

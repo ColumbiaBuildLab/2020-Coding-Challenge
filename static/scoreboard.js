@@ -13,6 +13,8 @@ function addTeamView(id, name, score){
   var increase_button = $("<button class = increase-button>+</button>");
   $(increase_button).click(function(){
     increase_score(id);
+
+    // (A) display updated scores with each increase
     location.reload();
   });
 
