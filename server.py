@@ -59,6 +59,7 @@ def increase_score():
     # move the team index up if its new score exceed previous team score
     while (i > 0 and scoreboard[i]["score"] > scoreboard[i - 1]["score"]):
         scoreboard[i], scoreboard[i - 1] = scoreboard[i - 1], scoreboard[i]
+        i -= 1
 
     return jsonify(scoreboard=scoreboard)
 
