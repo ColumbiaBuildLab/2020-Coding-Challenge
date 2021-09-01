@@ -1,3 +1,6 @@
+Molly McNutt
+mrm2234
+
 # 2020-Columbia-Build-Lab-Coding-Exercise
 
 Thank you for your interest in joining Columbia Build Lab!
