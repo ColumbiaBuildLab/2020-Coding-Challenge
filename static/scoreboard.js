@@ -32,7 +32,9 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      console.log("load")
+      location.reload()
+      console.log("done loading")
     },
     error: function(request, status, error){
         console.log("Error");
