@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, templating
 from flask import render_template
 from flask import Response, request, jsonify
 app = Flask(__name__)
@@ -46,10 +46,15 @@ def increase_score():
 
     json_data = request.get_json()   
     team_id = json_data["id"]  
-    
-    for team in scoreboard:
-        if team["id"] == team_id:
-            team["score"] += 1
+
+    for i in range(len(scoreboard)):
+
+        if scoreboard[i]['id'] == team_id:
+            scoreboard[i]['score'] += 1 
+
+            for j in range(i, 0, -1):
+                if scoreboard[j]["score"] > scoreboard[j-1]["score"]:
+                    scoreboard[j], scoreboard[j-1] = scoreboard[j-1], scoreboard[j]
 
     return jsonify(scoreboard=scoreboard)
 
