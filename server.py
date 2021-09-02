@@ -48,7 +48,7 @@ def increase_score():
     team_id = json_data["id"]  
 
     for i in range(len(scoreboard)):
-        print(scoreboard[i])
+
         if scoreboard[i]['id'] == team_id:
             scoreboard[i]['score'] += 1 
 
