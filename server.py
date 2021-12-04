@@ -47,10 +47,27 @@ def increase_score():
     json_data = request.get_json()   
     team_id = json_data["id"]  
     
-    for team in scoreboard:
-        if team["id"] == team_id:
-            team["score"] += 1
+#    for team in scoreboard:
+#        if team["id"] == team_id:
+#            team["score"] += 1
 
+    #Create a new loop that update the score and swap locations of teams on the list
+    previous_score = 0
+    counter = 0
+    flag = True
+    while flag:
+        score = 0
+        if scoreboard[counter]["id"] == team_id:
+            scoreboard[counter]["score"] += 1
+            score = scoreboard[counter]["score"]
+
+            if score > previous_score and counter != 0: #swap
+                scoreboard[counter], scoreboard[counter - 1] = scoreboard[counter-1], scoreboard[counter]
+            flag = False
+
+        previous_score = scoreboard[counter]["score"]
+        counter += 1
+    
     return jsonify(scoreboard=scoreboard)
 
 
