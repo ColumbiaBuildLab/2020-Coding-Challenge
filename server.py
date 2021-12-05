@@ -50,15 +50,18 @@ def increase_score():
     json_data = request.get_json()
     team_id = json_data["id"]
 
-    position = 0
-    while True:
-        if scoreboard[position]["id"] == team_id:
-            scoreboard[position]["score"] += 1
-            if position != 0:
-                if scoreboard[position-1]["score"] < scoreboard[position]["score"]:
-                    scoreboard[position-1], scoreboard[position] = scoreboard[position], scoreboard[position-1]
-            break
-        position = position + 1
+    for team in scoreboard:
+        if team["id"] == team_id:
+            team["score"] += 1
+
+    # bubble sort to sort the scoreboard list in descending order
+
+    for i in range(len(scoreboard)):
+        for j in range(i + 1, len(scoreboard)):
+            if scoreboard[i]["score"] < scoreboard[j]["score"]:
+                temp = scoreboard[i]
+                scoreboard[i] = scoreboard[j]
+                scoreboard[j] = temp
 
     return jsonify(scoreboard=scoreboard)
 
