@@ -1,5 +1,11 @@
 function display_scoreboard(scoreboard){
   $("#teams").empty();
+
+  // sort the teams by highest to lowest score
+  scoreboard.sort((a, b) => {
+    return b.score - a.score;
+  });
+
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
@@ -24,6 +30,11 @@ function addTeamView(id, name, score){
 }
 
 function increase_score(id){
+
+  // locally increment the value on front-end
+  // done this way because index and id don't always match up
+  scoreboard.find(t => t.id === id).score += 1
+
   var team_id = {"id": id}
   $.ajax({
     type: "POST",
@@ -41,6 +52,10 @@ function increase_score(id){
         console.log(error)
     }
   });
+
+  // refresh the scoreboard
+  display_scoreboard(scoreboard);
+
 }
 
 $(document).ready(function(){
