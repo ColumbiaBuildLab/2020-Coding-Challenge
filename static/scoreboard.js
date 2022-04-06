@@ -41,6 +41,7 @@ function increase_score(id){
         console.log(error)
     }
   });
+  window.location.reload() // reload page upon each click
 }
 
 $(document).ready(function(){
