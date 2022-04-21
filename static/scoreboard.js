@@ -27,12 +27,14 @@ function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
     type: "POST",
-    url: "increase_score",                
+    url: "increase_score",
     dataType : "json",
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        temp=result["scoreboard"]
+        scoreboard=temp
+        display_scoreboard(scoreboard)
     },
     error: function(request, status, error){
         console.log("Error");
@@ -41,7 +43,9 @@ function increase_score(id){
         console.log(error)
     }
   });
+
 }
+
 
 $(document).ready(function(){
   display_scoreboard(scoreboard);
