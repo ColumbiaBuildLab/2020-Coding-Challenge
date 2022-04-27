@@ -32,13 +32,15 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      $.each(result, function(index, element) {
+        display_scoreboard(element);
+      })
     },
     error: function(request, status, error){
         console.log("Error");
-        console.log(request)
-        console.log(status)
-        console.log(error)
+        console.log(request);
+        console.log(status);
+        console.log(error);
     }
   });
 }
