@@ -1,3 +1,5 @@
+import operator
+
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
@@ -34,7 +36,9 @@ scoreboard = [
     "score": 1
     },
 ]
-
+def sorting(scoreboard):
+    newboard = sorted(scoreboard, key=operator.itemgetter('score'), reverse=True)
+    return newboard
 
 @app.route('/')
 def show_scoreboard():
@@ -51,7 +55,7 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
 
-    return jsonify(scoreboard=scoreboard)
+    return jsonify(scoreboard=sorting(scoreboard))
 
 
 if __name__ == '__main__':
