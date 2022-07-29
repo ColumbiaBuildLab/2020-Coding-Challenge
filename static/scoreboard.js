@@ -33,6 +33,7 @@ function increase_score(id){
     data : JSON.stringify(team_id),
     success: function(result){
         
+      display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
