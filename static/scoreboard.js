@@ -1,6 +1,6 @@
 function display_scoreboard(scoreboard){
   $("#teams").empty();
-  scoreboard.sort((a,b) => (a.score < b.score) ? 1 : -1)
+  //scoreboard.sort((a,b) => (a.score < b.score) ? 1 : -1) <--client-side sort
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
