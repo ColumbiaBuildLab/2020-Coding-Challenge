@@ -4,7 +4,6 @@ function display_scoreboard(scoreboard){
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
-  console.log(scoreboard[0].score)
 }
 
 function addTeamView(id, name, score){
