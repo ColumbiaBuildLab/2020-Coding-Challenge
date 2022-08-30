@@ -1,3 +1,6 @@
+from dataclasses import dataclass
+from operator import ne
+import re
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
@@ -45,12 +48,22 @@ def increase_score():
     global scoreboard
 
     json_data = request.get_json()   
-    team_id = json_data["id"]  
+    team_id = json_data["id"]    
     
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
-
+	    # create a new entry for this team with the changed score
+            new_entry = {
+                "id" : team_id, 
+                "name": team["name"],
+                "score": team["score"] 
+            }
+	    # remove the old entry and add the updated entry to scoreboard
+            scoreboard.remove(team)
+            scoreboard.insert(int(team_id) - 1, new_entry)
+	# sort the updated scoreboard in reverse manner
+        scoreboard.sort(key=lambda k: k["score"], reverse=True)
     return jsonify(scoreboard=scoreboard)
 
 
