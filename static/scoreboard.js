@@ -1,3 +1,8 @@
+/**
+ * Shashank Nathani
+ * UNI: sn2954
+ */
+
 function display_scoreboard(scoreboard){
   $("#teams").empty();
   $.each(scoreboard, function(index, team){
@@ -32,7 +37,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      location.reload(true);    
     },
     error: function(request, status, error){
         console.log("Error");
