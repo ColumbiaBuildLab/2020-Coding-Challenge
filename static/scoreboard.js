@@ -32,7 +32,11 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      if (result['scoreboard'] !== undefined) {
+          update_scoreboard(result['scoreboard'])
+      } else {
+          console.log("Error: no scoreboard object returned in response.")
+      }
     },
     error: function(request, status, error){
         console.log("Error");
@@ -41,6 +45,13 @@ function increase_score(id){
         console.log(error)
     }
   });
+}
+
+function update_scoreboard(scoreboard_new) {
+  $("#teams").empty();
+  $.each(scoreboard_new, function(index, team){
+    addTeamView(team.id, team.name, team.score);
+  })
 }
 
 $(document).ready(function(){
