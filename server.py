@@ -1,6 +1,5 @@
-from flask import Flask
-from flask import render_template
-from flask import Response, request, jsonify
+from flask import Flask, Response, jsonify, render_template, request
+
 app = Flask(__name__)
 
 scoreboard = [

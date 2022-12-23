@@ -32,7 +32,23 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      /* part(1), before sorting
+      $("#teams").empty();
+      console.log('response:',result['scoreboard']);
+      for (let i = 0; i < result['scoreboard'].length; i++) {
+        addTeamView(result['scoreboard'][i]['id'], result['scoreboard'][i]['name'], result['scoreboard'][i]['score']);
+      }
+      */
+
+      //part (2)
+      $("#teams").empty();
+      let score_res = result['scoreboard'];
+      score_res.sort((a, b) => b.score - a.score);
+      console.log(score_res);
+      for (let i = 0; i < score_res.length; i++) {
+        addTeamView(score_res[i]['id'], score_res[i]['name'], score_res[i]['score']);
+      }
+
     },
     error: function(request, status, error){
         console.log("Error");
