@@ -38,7 +38,8 @@ scoreboard = [
 
 @app.route('/')
 def show_scoreboard():
-    return render_template('scoreboard.html', scoreboard = scoreboard) 
+    scoreboard_sorted = sorted(scoreboard, key=lambda team: team['score'], reverse = True)
+    return render_template('scoreboard.html', scoreboard = scoreboard_sorted) 
 
 @app.route('/increase_score', methods=['GET', 'POST'])
 def increase_score():
@@ -51,7 +52,8 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
 
-    return jsonify(scoreboard=scoreboard)
+    scoreboard_sorted = sorted(scoreboard, key=lambda team: team['score'], reverse = True)
+    return jsonify(scoreboard=scoreboard_sorted)
 
 
 if __name__ == '__main__':
