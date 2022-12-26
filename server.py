@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
+import json, operator
 app = Flask(__name__)
 
 scoreboard = [
@@ -38,6 +39,10 @@ scoreboard = [
 
 @app.route('/')
 def show_scoreboard():
+    # scoreboard.sort() sorts JSON on 'score' in ascending order
+    scoreboard.sort(key=operator.itemgetter('score'))
+    # scoreboard.reverse() reverses the order so that the JSON is sorted in descending order
+    scoreboard.reverse()
     return render_template('scoreboard.html', scoreboard = scoreboard) 
 
 @app.route('/increase_score', methods=['GET', 'POST'])
@@ -54,9 +59,6 @@ def increase_score():
     return jsonify(scoreboard=scoreboard)
 
 
+
 if __name__ == '__main__':
    app.run(debug = True)
-
-
-
-
