@@ -33,7 +33,7 @@ function increase_score(id){
     data : JSON.stringify(team_id),
     success: function(result){
         // Part 1: Reflect score changes immediately on the front-end
-        display_scoreboard(result.scoreboard);
+        $("#teams").html(display_scoreboard(result.scoreboard));
     },
     error: function(request, status, error){
         console.log("Error");
