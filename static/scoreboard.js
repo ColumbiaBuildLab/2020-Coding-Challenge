@@ -34,6 +34,7 @@ function increase_score(id){
     success: function(result){
         // Part 1: Reflect score changes immediately on the front-end
         $("#teams").html(display_scoreboard(result.scoreboard));
+        window.location.reload();
     },
     error: function(request, status, error){
         console.log("Error");
