@@ -41,6 +41,7 @@ function increase_score(id){
         console.log(error)
     }
   });
+  window.location.reload()
 }
 
 $(document).ready(function(){
