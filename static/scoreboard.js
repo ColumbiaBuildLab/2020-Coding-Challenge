@@ -37,9 +37,8 @@ function increase_score(id){
     data : JSON.stringify(team_id),
     success: function(result){
       // console.log(result);
-
-      var updated_scoreboard = result["scoreboard"]
-      scoreboard = updated_scoreboard;
+      
+      scoreboard = result["scoreboard"]
       display_scoreboard(scoreboard);
 
     },
