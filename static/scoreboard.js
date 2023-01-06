@@ -13,8 +13,6 @@ function addTeamView(id, name, score){
   var increase_button = $("<button class = increase-button>+</button>");
   $(increase_button).on("click", function(){
     increase_score(id);
-    // console.log("The team name: " + name);
-    // console.log("The score: " + score);
   });
   name_template.text(name);
   score_template.text(score);
@@ -34,7 +32,6 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-
       // Update the scoreboard instead of window.location.reload()
       scoreboard = result["scoreboard"]
       display_scoreboard(scoreboard);
