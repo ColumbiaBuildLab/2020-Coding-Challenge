@@ -15,7 +15,6 @@ function addTeamView(id, name, score){
     increase_score(id);
     // console.log("The team name: " + name);
     // console.log("The score: " + score);
-    // window.location.reload(true);
   });
   name_template.text(name);
   score_template.text(score);
@@ -24,7 +23,6 @@ function addTeamView(id, name, score){
   team_template.append(score_template);
   team_template.append(button_template);
   $("#teams").append(team_template);
-  // console.log("The score is " + score);
 }
 
 function increase_score(id){
@@ -36,11 +34,11 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-      // console.log(result);
-      
+
+      // Update the scoreboard instead of window.location.reload()
       scoreboard = result["scoreboard"]
       display_scoreboard(scoreboard);
-
+  
     },
     error: function(request, status, error){
         console.log("Error");
