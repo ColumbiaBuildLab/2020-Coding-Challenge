@@ -5,7 +5,7 @@
   <h1>NHL Teams - 2020-Columbia-Build-Lab-Coding-Exercise</h1>
   <ul>
     <div v-for="team in orderedTeams" :key="team.id">
-      <li v-model="team.name">${team.name}$: ${team.score}$</li>
+      <li>${team.name}$: ${team.score}$</li>
       <button @click="increaseTeamScore(team)">Increase Score</button>
     </div>
   </ul>
@@ -24,7 +24,6 @@
     },
     methods: {
       async increaseTeamScore(team) {
-        console.log(team.id)
 
         var payload = {
           id: team.id
