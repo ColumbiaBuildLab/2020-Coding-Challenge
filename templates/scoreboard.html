@@ -37,10 +37,9 @@
           method: "POST",
           body: JSON.stringify(payload)
          })
+         .then((response) => response.json())
 
-         let content = await response.json()
-
-         this.teamData = content
+        this.teamData = response
       },
       async getTeams() {
         const response = await fetch("http://127.0.0.1:5000/api/teams").then((response) => response.json())
