@@ -32,7 +32,12 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        $('#teams').empty();
+        var scores = result.scoreboard;
+        scores.sort(function(a, b){return b.score - a.score});
+        for (var i = 0; i < scores.length; i++) {
+        addTeamView(scores[i].id, scores[i].name, scores[i].score);
+        }
     },
     error: function(request, status, error){
         console.log("Error");
