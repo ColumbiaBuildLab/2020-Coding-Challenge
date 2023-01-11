@@ -1,7 +1,9 @@
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
+from flask_cors import CORS
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 scoreboard = [
     {
@@ -38,20 +40,33 @@ scoreboard = [
 
 @app.route('/')
 def show_scoreboard():
-    return render_template('scoreboard.html', scoreboard = scoreboard) 
+    return render_template('scoreboard.html')
 
-@app.route('/increase_score', methods=['GET', 'POST'])
+@app.route('/api/teams', methods=['GET'])
+def teams():
+
+    global scoreboard
+
+    response = jsonify(scoreboard=scoreboard)
+
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
+
+@app.route('/api/increase_score', methods=['GET', 'POST'])
 def increase_score():
     global scoreboard
 
-    json_data = request.get_json()   
-    team_id = json_data["id"]  
+    json_data = request.get_json()
+    team_id = json_data["id"]
     
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
 
-    return jsonify(scoreboard=scoreboard)
+    response = jsonify(scoreboard=scoreboard)
+
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 
 if __name__ == '__main__':

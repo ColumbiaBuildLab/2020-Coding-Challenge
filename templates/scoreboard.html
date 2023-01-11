@@ -1,42 +1,61 @@
-<html>
-  <head>
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename = 'scoreboard.js') }}"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-    <script>
-      var scoreboard = {{scoreboard|tojson}} 
-    </script>
-   <style>
-     #title{
-       font-size: 30px;
-       font-weight: bold;
-       color: red;
-       padding: 50px;
-       margin-bottom: 30px;
-     }
-     #reams-input{
-       vertical-align: middle;
-     }
-     #submit-button{
-       vertical-align: middle;
-     }
-     #error-field{
-       color: red;
-     }
-   </style>
-  </head>
-  <body>
-    <div class="container">
-      <div id="title">
-        2020 NHL Scoreboard
-      </div>
-      <div class="contents">
-          <div id="teams">
+<script src="https://unpkg.com/vue@3.2.45/dist/vue.global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 
-          </div>
-      </div>
+<div id="app">
+  <h1>NHL Teams - 2020-Columbia-Build-Lab-Coding-Exercise</h1>
+  <ul>
+    <div v-for="team in orderedTeams" :key="team.id">
+      <li>${team.name}$: ${team.score}$</li>
+      <button @click="increaseTeamScore(team)">Increase Score</button>
     </div>
-  </body>
-</html>
+  </ul>
+</div>
+
+<script>
+
+  const { createApp } = Vue
+
+  createApp({
+    delimiters: ["${", "}$"],
+    data() {
+      return {
+        teamData: []
+      }
+    },
+    methods: {
+      async increaseTeamScore(team) {
+
+        var payload = {
+          id: team.id
+        }
+
+        const response = await fetch("http://127.0.0.1:5000/api/increase_score",
+         {
+          headers: {
+          "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify(payload)
+         })
+         .then((response) => response.json())
+
+        this.teamData = response
+      },
+      async getTeams() {
+        const response = await fetch("http://127.0.0.1:5000/api/teams").then((response) => response.json())
+        this.teamData = response
+      }
+    },
+    computed: {
+      orderedTeams() {
+
+        data = _.orderBy(this.teamData.scoreboard, ['score'], ['desc'])
+
+        return data
+      }
+    },
+    created() {
+      this.getTeams()
+    }
+  }).mount('#app')
+</script>
