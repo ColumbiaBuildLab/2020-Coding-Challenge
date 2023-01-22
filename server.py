@@ -52,7 +52,7 @@ def increase_score():
             team["score"] += 1
 
 
-    sorted_scoreboard = sorted(scoreboard, key=lambda x: x["score"], reverse=False);
+    sorted_scoreboard = sorted(scoreboard, key=lambda x: x["score"], reverse=True);
     scoreboard = sorted_scoreboard;
     return jsonify(scoreboard=scoreboard)
 
