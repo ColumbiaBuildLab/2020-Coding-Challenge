@@ -32,7 +32,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        //increase the score immediately without refreshing
+        display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
