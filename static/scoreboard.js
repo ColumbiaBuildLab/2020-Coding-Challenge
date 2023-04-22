@@ -32,7 +32,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      location.href = location.href
+      //Yupeng Yang, uni-yy3303
     },
     error: function(request, status, error){
         console.log("Error");
