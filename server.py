@@ -50,8 +50,21 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+    
+    #Simple Selection Sort
+    array_length = len(scoreboard)
+    for i in range(array_length):
+        max_index = i
+        for j in range(i+1, array_length):
+            if (scoreboard[j]["score"]>scoreboard[max_index]["score"]):
+                max_index = j
+        tempValue = scoreboard[i]
+        scoreboard[i] = scoreboard[max_index]
+        scoreboard[max_index] = tempValue
 
-    return jsonify(scoreboard=scoreboard)
+
+    print(scoreboard)
+    return jsonify(scoreboard)
 
 
 if __name__ == '__main__':
