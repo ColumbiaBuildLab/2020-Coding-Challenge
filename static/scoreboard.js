@@ -32,16 +32,19 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      //on button press we want the scoreboard to update so we redisplay the scoreboard with our result.
+      display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
-        console.log(request)
-        console.log(status)
-        console.log(error)
+        console.log(request);
+        console.log(status);
+        console.log(error);
     }
   });
 }
+
+
 
 $(document).ready(function(){
   display_scoreboard(scoreboard);
