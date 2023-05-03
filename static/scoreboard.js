@@ -32,6 +32,12 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
+      
+      $.each(result.scoreboard, function(index, team){
+        $('#teams').find('#team-' + team.id).find('.col-md-2').text(team.score);
+      });
+      
+      display_scoreboard(result.scoreboard);
         
     },
     error: function(request, status, error){
