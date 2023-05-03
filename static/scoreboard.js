@@ -14,6 +14,7 @@ function addTeamView(id, name, score){
   $(increase_button).click(function(){
     increase_score(id);
   });
+  console.log(increase_button); 
   name_template.text(name);
   score_template.text(score);
   button_template.append(increase_button);
@@ -27,12 +28,13 @@ function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
     type: "POST",
-    url: "increase_score",                
+    url: '/increase_score',                
     dataType : "json",
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+    var scoreboard = result.scoreboard;
+    display_scoreboard(scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
