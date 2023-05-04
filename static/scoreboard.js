@@ -24,7 +24,7 @@ function addTeamView(id, name, score){
 }
 
 function increase_score(id){
-  var team_id = {"id": id}
+  var team_id = {"id": id};
   $.ajax({
     type: "POST",
     url: "increase_score",                
@@ -35,20 +35,27 @@ function increase_score(id){
       // Updates the scorecard to match new scores
       var scorecard = $(`#team-${id} > .score`)
 
-      result["scoreboard"].forEach(element => {
-        if(element["id"] == id) {
-          scorecard.text(element["score"])
-        }
-      });
+      var prev_score = 9999;
 
-      // Changes position of elements based on score
-      
+      result["scoreboard"].forEach(element => {
+        var curr_score = parseInt(element["score"]);
+
+        if (element["id"] == id) {
+          scorecard.text(element["score"]);
+
+          if (curr_score > prev_score) {
+            // Swap elements around
+          }
+        }
+
+        prev_score = curr_score;
+      });
     },
     error: function(request, status, error){
       console.log("Error");
-      console.log(request)
-      console.log(status)
-      console.log(error)
+      console.log(request);
+      console.log(status);
+      console.log(error);
     }
   });
 }
