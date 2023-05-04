@@ -32,9 +32,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-      console.log(id)
-      console.log(result)
-
+      // Updates the scorecard to match new scores
       var scorecard = $(`#team-${id} > .score`)
 
       result["scoreboard"].forEach(element => {
@@ -42,6 +40,9 @@ function increase_score(id){
           scorecard.text(element["score"])
         }
       });
+
+      // Changes position of elements based on score
+      
     },
     error: function(request, status, error){
       console.log("Error");
