@@ -11,8 +11,11 @@ function addTeamView(id, name, score){
   var score_template = $("<div class = col-md-2></div>");
   var button_template = $("<div class = col-md-2></div>");
   var increase_button = $("<button class = increase-button>+</button>");
+  
+  // when button is clicked, increase score and refresh page
   $(increase_button).click(function(){
     increase_score(id);
+    location.reload()
   });
   name_template.text(name);
   score_template.text(score);
@@ -34,6 +37,7 @@ function increase_score(id){
     success: function(result){
         
     },
+    
     error: function(request, status, error){
         console.log("Error");
         console.log(request)
