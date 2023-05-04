@@ -62,8 +62,6 @@ def increase_score():
             next_team = scoreboard[i-1]
             scoreboard[i-1] = scoreboard[i]
             scoreboard[i] = next_team
-        
-        next_score = scoreboard[i]
 
     return jsonify(scoreboard=scoreboard)
 

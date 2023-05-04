@@ -1,3 +1,5 @@
+// var teams = [];
+
 function display_scoreboard(scoreboard){
   $("#teams").empty();
   $.each(scoreboard, function(index, team){
@@ -33,23 +35,45 @@ function increase_score(id){
     data : JSON.stringify(team_id),
     success: function(result){
       // Updates the scorecard to match new scores
-      var scorecard = $(`#team-${id} > .score`)
+      // var scorecard = $(`#team-${id} > .score`)
 
-      var prev_score = 9999;
+      // result["scoreboard"].forEach(element => {
+      //   if (element["id"] == id) {
+      //     scorecard.text(element["score"]);
+      //   }
+      // })
+      
+      // console.log(result["scoreboard"]);
+      // Update team ordering
+      // var new_scoreboard = result["scoreboard"];
+      // var scoreboard = $(`#teams`);
 
-      result["scoreboard"].forEach(element => {
-        var curr_score = parseInt(element["score"]);
+      // console.log(scoreboard.children());
 
-        if (element["id"] == id) {
-          scorecard.text(element["score"]);
+      // scoreboard.children().each(i => {
+      //   console.log($(this));
+      //   console.log(i);
+      // });
+      // console.log(scoreboard);
 
-          if (curr_score > prev_score) {
-            // Swap elements around
-          }
-        }
+      display_scoreboard(result["scoreboard"]);
 
-        prev_score = curr_score;
-      });
+      // for (var i = result["scoreboard"].length - 1; i > 0; i--) {
+      //   var curr_team = scoreboard[i];
+      //   var next_team = scoreboard[i - 1];
+      //   var curr_score = curr_team["score"];
+      //   var next_score = next_team["score"];
+
+      //   console.log(curr_score +' '+ next_score);
+
+      //   if (curr_score > next_score) {
+      //     console.log("yes!");
+          
+      //     $(`#team-${curr_team["id"]}`).insertBefore(`#team-${next_team["id"]}`);
+      //   }
+      // }
+      // console.log('');
+      ;
     },
     error: function(request, status, error){
       console.log("Error");
