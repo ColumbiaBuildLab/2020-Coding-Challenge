@@ -1,8 +1,15 @@
 function display_scoreboard(scoreboard){
   $("#teams").empty();
+  var scores = []
   $.each(scoreboard, function(index, team){
-    addTeamView(team.id, team.name, team.score);
+    scores.push([team.id,team.name,team.score])
   });
+  scores.sort(function(a,b) {
+    return b[2]-a[2]
+  });
+  for (let i = 0; i < scores.length; i++) {
+    addTeamView(scores[i][0], scores[i][1], scores[i][2])
+  }
 }
 
 function addTeamView(id, name, score){
@@ -32,7 +39,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      display_scoreboard(result["scoreboard"]);
     },
     error: function(request, status, error){
         console.log("Error");
