@@ -6,8 +6,21 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <script>
-      var scoreboard = {{scoreboard|tojson}} 
+      var scoreboard = {{scoreboard|tojson}}
     </script>
+{#    <script>#}
+{#        var object = new XMLHttpRequest();#}
+{#        object.onreadystatechange = function ()#}
+{#        {#}
+{#            if (this.status == 200 &&  this.readyState == 4)#}
+{#            {#}
+{#                document.getElementById("teams").innerHTML = this.responseText;#}
+{#            }#}
+{#        }#}
+{#        object.open("post", "increase_score", true);#}
+{#        object.send();#}
+{#    </script>#}
+
    <style>
      #title{
        font-size: 30px;
