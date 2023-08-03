@@ -32,7 +32,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        onScoreChange(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
@@ -42,6 +42,23 @@ function increase_score(id){
     }
   });
 }
+
+function onScoreChange(...scoreboard) {
+  $(document).trigger('onScoreChange', scoreboard);
+}
+
+function onScoreboardUpdate() {
+  $(document).trigger('onScoreboardUpdate');
+}
+
+$(document).on("onScoreChange", function (event, newScoreboard){
+  scoreboard = newScoreboard;
+  onScoreboardUpdate()
+})
+
+$(document).on("onScoreboardUpdate", function () {
+  display_scoreboard(scoreboard);
+})
 
 $(document).ready(function(){
   display_scoreboard(scoreboard);
