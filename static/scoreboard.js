@@ -6,11 +6,11 @@ function display_scoreboard(scoreboard){
 }
 
 function addTeamView(id, name, score){
-  var team_template = $("<div class = row></div>");
-  var name_template = $("<div class = col-md-5></div>");
-  var score_template = $("<div class = col-md-2></div>");
-  var button_template = $("<div class = col-md-2></div>");
-  var increase_button = $("<button class = increase-button>+</button>");
+  var team_template = $("<div class='row'></div>");
+  var name_template = $("<div class='col-md-5'></div>");
+  var score_template = $(`<div class='col-md-2 score-${id}'></div>`); // Add class here
+  var button_template = $("<div class='col-md-2'></div>");
+  var increase_button = $("<button class='increase-button'>+</button>");
   $(increase_button).click(function(){
     increase_score(id);
   });
@@ -23,6 +23,19 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
+function sortTeams() {
+  // Sort the teams based on their scores
+  scoreboard.sort((a, b) => b.score - a.score);
+
+  // Remove all existing team elements
+  $("#teams").empty();
+
+  // Re-add the team elements in the correct order
+  $.each(scoreboard, function(index, team){
+    addTeamView(team.id, team.name, team.score);
+  });
+}
+
 function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
@@ -32,7 +45,15 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        // Update the score on the front-end
+        const updatedTeam = scoreboard.find(team => team.id === id);
+        if (updatedTeam) {
+          updatedTeam.score++;
+          $(`.score-${id}`).text(updatedTeam.score);
+
+          // Sort the teams
+          sortTeams();
+        }
     },
     error: function(request, status, error){
         console.log("Error");
