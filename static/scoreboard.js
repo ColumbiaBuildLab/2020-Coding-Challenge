@@ -42,9 +42,9 @@ function increase_score(id) {
     }
   });
 
-  // location.reload() automatically reloads the page to display the updated statistics immediately in the frontend.
+  // location.reload() automatically reloads the page to display the updated statistics immediately in the front-end.
   // This method is safer than simply updating the frontend html because it ensures that there are no differences 
-  // between the data stored in the backend and the data displayed in the frontend.
+  // between the data stored in the backend and the data displayed in the front-end.
   location.reload();
 }
 
