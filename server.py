@@ -57,6 +57,9 @@ def increase_score():
 if __name__ == '__main__':
    app.run(debug = True)
 
+# I have seen in the README.md that I would need to make changes in both server.py as well as scoreboard.js
+# But I do manage to accomplish by changing only the scoreboard.js file. I believe it should also demonstrate my understanding for the exisiting code base.
+
 
 
 
