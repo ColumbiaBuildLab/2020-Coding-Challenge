@@ -8,7 +8,7 @@ function display_scoreboard(scoreboard){
 function addTeamView(id, name, score){
   var team_template = $("<div class = row></div>");
   var name_template = $("<div class = col-md-5></div>");
-  var score_template = $(`<div class = col-md-2 id=score-${id}></div>`);
+  var score_template = $(`<div class = col-md-2></div>`);
   var button_template = $("<div class = col-md-2></div>");
   var increase_button = $("<button class = increase-button>+</button>");
   $(increase_button).click(function(){
@@ -32,8 +32,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-      const updated_value = result.scoreboard.find(x => x && x.id == id);
-      document.getElementById(`score-${id}`).innerHTML = updated_value.score;
+      display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
