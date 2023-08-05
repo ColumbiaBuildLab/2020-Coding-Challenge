@@ -6,7 +6,7 @@ app = Flask(__name__)
 scoreboard = [
     {
     "id": 1,
-    "name": "Boston Bruins",
+    "name": "Boston Bruisc",
     "score": 7
     },
 
@@ -35,6 +35,8 @@ scoreboard = [
     },
 ]
 
+def sort_scoreboard():
+    return (sorted(scoreboard, key = lambda x: x["score"], reverse = True ))
 
 @app.route('/')
 def show_scoreboard():
@@ -51,6 +53,8 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
 
+    scoreboard = sort_scoreboard()
+    
     return jsonify(scoreboard=scoreboard)
 
 
