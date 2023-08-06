@@ -3,6 +3,7 @@ from flask import render_template
 from flask import Response, request, jsonify
 app = Flask(__name__)
 
+# base scoreboard
 scoreboard = [
     {
     "id": 1,
@@ -44,13 +45,17 @@ def show_scoreboard():
 def increase_score():
     global scoreboard
 
+    # retrieve data from json to identify "to-be-incremented" team
     json_data = request.get_json()   
     team_id = json_data["id"]  
     
+    # iterate thru scoreboard, "to-be-incremented" team, increment count
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+            
 
+    # converts updated scoreboard into JSON response and sends it back to client (scoreboard.js)
     return jsonify(scoreboard=scoreboard)
 
 

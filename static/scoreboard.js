@@ -1,3 +1,5 @@
+// iterates over each team element in scoreboard array
+// passes team id, name, and score into the addTeamView function
 function display_scoreboard(scoreboard){
   $("#teams").empty();
   $.each(scoreboard, function(index, team){
@@ -5,6 +7,9 @@ function display_scoreboard(scoreboard){
   });
 }
 
+// initializes the buttons for each team
+// calls increase_score function on team if increase_button is clicked
+// appends values to the templates to display info
 function addTeamView(id, name, score){
   var team_template = $("<div class = row></div>");
   var name_template = $("<div class = col-md-5></div>");
@@ -23,6 +28,8 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
+// sends the team id as a JS object to server.py to increase the score
+// POST -->  send data to server to update
 function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
@@ -32,7 +39,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      display_scoreboard(result.scoreboard) // just display updated scoreboard right away
     },
     error: function(request, status, error){
         console.log("Error");
