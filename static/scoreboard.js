@@ -32,7 +32,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        update_score_board(result.scoreboard);
+        display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
@@ -43,15 +43,9 @@ function increase_score(id){
   });
 }
 
-function update_score_board(scoreboard){
-  $("#teams").empty();//erase all the teams from the score board to update it. 
-  scoreboard.sort(function(x, y)
-    {return y - x}
-    ); //numeric sort for front end
-  $.each(scoreboard, function (index, team) {
-    addTeamView(team.id, team.name, team.score);})//add all the teams to scoreboard after sorting
-}
-
 $(document).ready(function(){
   display_scoreboard(scoreboard);//display the scoreboard on the web. 
+
+
+
 })
