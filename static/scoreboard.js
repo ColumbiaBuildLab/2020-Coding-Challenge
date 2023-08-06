@@ -1,5 +1,18 @@
 function display_scoreboard(scoreboard){
   $("#teams").empty();
+  // decided to handle scoring on the front-end since there's
+  // only a few things to move around and handle
+  // sort the scoreboard by score using the sort function
+  // I know it wasn't required, but I sorted also by name
+  // in case of a tie in scores
+  scoreboard.sort((team1, team2) => {
+    // first sort by score
+    if (team1.score !== team2.score){
+      return team2.score - team1.score;
+    }
+    // if scores are equal, sort by name
+    return team1.name.localeCompare(team2.name)
+  });
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
@@ -32,7 +45,11 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        // if result is not null and scoreboard is not null
+        if (result && result.scoreboard){
+          // execute display_scoreboard
+          display_scoreboard(result.scoreboard);
+        }
     },
     error: function(request, status, error){
         console.log("Error");
