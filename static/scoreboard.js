@@ -39,7 +39,11 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-      display_scoreboard(result.scoreboard) // just display updated scoreboard right away
+      // grab updated scoreboard and sort in non-increasing order
+      var sorted_board = result.scoreboard.sort(
+        (t1, t2) => (t1.score < t2.score) ? 1 : (t1.score > t2.score ? -1 : 0)
+      ) 
+      display_scoreboard(sorted_board) // display sorted, updated scoreboard right away
     },
     error: function(request, status, error){
         console.log("Error");
