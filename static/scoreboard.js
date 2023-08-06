@@ -1,6 +1,10 @@
 function display_scoreboard(scoreboard){
   $("#teams").empty();
+  // decided to handle scoring on the front-end since there's
+  // only a few things to move around and handle
   // sort the scoreboard by score using the sort function
+  // I know it wasn't required, but I sorted also by name
+  // in case of a tie in scores
   scoreboard.sort((team1, team2) => {
     // first sort by score
     if (team1.score !== team2.score){
