@@ -1,5 +1,7 @@
-// iterates over each team element in scoreboard array
-// passes team id, name, and score into the addTeamView function
+/* referenced souces: https://www.scaler.com/topics/javascript-sort-an-array-of-objects/ */
+
+/* Iterates over each team element in scoreboard array and
+  passes team id, name, and score into the addTeamView function */
 function display_scoreboard(scoreboard){
   $("#teams").empty();
   $.each(scoreboard, function(index, team){
@@ -7,9 +9,9 @@ function display_scoreboard(scoreboard){
   });
 }
 
-// initializes the buttons for each team
-// calls increase_score function on team if increase_button is clicked
-// appends values to the templates to display info
+/* Initializes the buttons for each team and
+  calls increase_score function on team if increase_button is clicked. 
+  Then appends values to the templates to display info */
 function addTeamView(id, name, score){
   var team_template = $("<div class = row></div>");
   var name_template = $("<div class = col-md-5></div>");
@@ -28,8 +30,8 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
-// sends the team id as a JS object to server.py to increase the score
-// POST -->  send data to server to update
+/* Sends the team id as a JS object to server.py to increase the score.
+   POST -->  send data to server to update */
 function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
@@ -54,6 +56,7 @@ function increase_score(id){
   });
 }
 
+/* Displays the webpage */
 $(document).ready(function(){
   display_scoreboard(scoreboard);
 })
