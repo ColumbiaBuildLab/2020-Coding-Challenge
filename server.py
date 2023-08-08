@@ -50,9 +50,17 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+	
+    return jsonify(scoreboard = sorted(scoreboard, 
+                                       key = get_score_key))
 
-    return jsonify(scoreboard=scoreboard)
-
+def get_score_key(team):
+    """Return inverted score and team name for sorting
+    the scores in descending order and the teams on
+    ascending order given a tie."""
+    inverted_score = -team['score']
+    team_name = team['name'] 
+    return (inverted_score, team_name)
 
 if __name__ == '__main__':
    app.run(debug = True)
