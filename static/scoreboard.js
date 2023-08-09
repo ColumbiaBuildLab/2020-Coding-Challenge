@@ -32,7 +32,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-      // On success we want to display the scoreboard that is being returned as sorted on the backend
+      // On success we want to display the scoreboard that is being returned as sorted on the backend from the python server
       // the .ajax success function works as updating the page without needing a refresh
       display_scoreboard(result.scoreboard)
     },
