@@ -41,7 +41,7 @@ def show_scoreboard():
     # Sort the scoreboard by score when page is refreshed
     # Sort it in decreasing order as per the instructions
     # Did not include an alphabetical tie, but if I wanted to I would add x['name'] to the lambda function
-    sorted_scoreboard = sorted(scoreboard, key=lambda x: (x['score']))
+    sorted_scoreboard = sorted(scoreboard, key=lambda x: (x['score']), reverse = True)
     return render_template('scoreboard.html', scoreboard=scoreboard) 
 
 @app.route('/increase_score', methods=['GET', 'POST'])
@@ -58,7 +58,7 @@ def increase_score():
     # Sort the scoreboard by score when a button is clicked
     # Sort it in decreasing order as per the instructions
     # Did not include an alphabetical tie, but if I wanted to I would add x['name'] to the lambda function
-    sorted_scoreboard = sorted(scoreboard, key=lambda x: (x['score']))
+    sorted_scoreboard = sorted(scoreboard, key=lambda x: (x['score']), reverse = True)
     return jsonify(scoreboard=sorted_scoreboard)
 
 
