@@ -32,13 +32,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-      // Assuming the server responds with the updated score for the team
-      var updatedScore = result.score;  // replace with the correct key if different
-
-      // Now, find the team's score on the page and update it
-      // This assumes that you can uniquely identify each team's score element. 
-      // One way is to give each score element an ID based on the team's ID.
-      $('#score-' + id).text(updatedScore);
+      display_scoreboard(result)
     },
     error: function(request, status, error){
         console.log("Error");
