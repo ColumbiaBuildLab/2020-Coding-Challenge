@@ -38,7 +38,10 @@ scoreboard = [
 
 @app.route('/')
 def show_scoreboard():
-    sorted_scoreboard = sorted(scoreboard, key=lambda x: (x['score']), reverse = True)
+    # Aort the scoreboard by score before passing it to render 
+    # As a tie, use alphabetical ordering
+    # Need to include a - for name so that the reverse=True does not affect it
+    sorted_scoreboard = sorted(scoreboard, key=lambda x: (x['score'], -x['name']), reverse = True)
     return render_template('scoreboard.html', scoreboard=sorted_scoreboard) 
 
 @app.route('/increase_score', methods=['GET', 'POST'])
