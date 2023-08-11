@@ -5,6 +5,12 @@ function display_scoreboard(scoreboard){
   });
 }
 
+function update_team_score(scoreboard, id){
+  var row = $(".row").eq(id-1);
+  var scoreElement = row.find(".col-md-2")[0]; 
+  $(scoreElement).text(scoreboard[id-1]["score"]);
+}
+
 function addTeamView(id, name, score){
   var team_template = $("<div class = row></div>");
   var name_template = $("<div class = col-md-5></div>");
@@ -32,7 +38,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      update_team_score(result.scoreboard, result.id);
     },
     error: function(request, status, error){
         console.log("Error");
