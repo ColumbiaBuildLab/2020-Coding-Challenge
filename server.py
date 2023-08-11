@@ -35,8 +35,8 @@ scoreboard = [
     },
 ]
 
-def socre_func(item):
-        return item['score']
+def socre_func(team):
+        return team['score']
 @app.route('/')
 def show_scoreboard():
     return render_template('scoreboard.html', scoreboard = scoreboard) 
