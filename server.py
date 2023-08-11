@@ -44,19 +44,21 @@ def show_scoreboard():
 def increase_score():
     global scoreboard
 
-    json_data = request.get_json()   
+    json_data = request.get_json()
+
+    # Extract the team ID from the JSON data   
     team_id = json_data["id"]  
     
+    # Iterate through the scoreboard to find the team with the provided ID
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+    
+    # Sorting based on each team's score in reversed order (from high to low) is done using the 'score' value
+    scoreboard.sort(key=lambda team: team['score'], reverse=True)
 
     return jsonify(scoreboard=scoreboard)
 
 
 if __name__ == '__main__':
    app.run(debug = True)
-
-
-
-

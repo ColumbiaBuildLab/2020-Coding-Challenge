@@ -32,6 +32,10 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
+      // We need to modify here to make the update in the front-end immediately
+      // The "display_scoreboard" function clears the existing content of the "teams" element 
+      // on the webpage and fills it with rows representing each team's information from the scoreboard.
+      display_scoreboard(result.scoreboard);
         
     },
     error: function(request, status, error){
