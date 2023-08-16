@@ -32,7 +32,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-      // update score upon send of POST request (upon clicking a '+' button)
+      // update score upon send of POST request (which gets sent upon clicking a '+' button)
       display_scoreboard(result["scoreboard"])
     },
     error: function(request, status, error){
