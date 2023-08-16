@@ -6,6 +6,7 @@ This is a simple coding exercise designed to see your proficiency in web program
 Although it is written in Python and JS using flask framework, you don't need prior experience with them to complete the exercise - you are welcome and encouraged to use any online resources. 
 This exercise should take no longer than 1 hour, though you are welcome to take as much time as you need.
 
+
 This exercise is designed to see how well you can read others' code, and extend it. As such, most of the code is already written - you only need to add a couple lines of code at the right place. 
 
 If you don't have flask on your computer, please install it with $pip install Flask. You can fork this repository and clone it to your desktop. You can run the code with $python server.py. Once you run it, you can type in http://127.0.0.1:5000/ on your browser to see the webpage rendered locally.
