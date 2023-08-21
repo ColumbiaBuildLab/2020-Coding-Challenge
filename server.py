@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
+
 app = Flask(__name__)
 
 scoreboard = [
@@ -50,8 +51,29 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
-
+    sort_scoreboard()
     return jsonify(scoreboard=scoreboard)
+
+@app.route('/sort_scoreboard')
+def sort_scoreboard():
+    global scoreboard
+    p = 0
+    while p < len(scoreboard):
+
+    #     find min
+        min_idx = p
+        for i in range(p, len(scoreboard)): #each time 
+            if scoreboard[i]['score'] > scoreboard[min_idx]['score']:
+                min_idx = i
+    #     swap min element with element at 
+ 
+        temp = scoreboard[p]
+        scoreboard[p] = scoreboard[min_idx]
+        scoreboard[min_idx] = temp
+
+
+    # update p
+        p += 1
 
 
 if __name__ == '__main__':
