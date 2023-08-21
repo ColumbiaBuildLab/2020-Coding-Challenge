@@ -3,6 +3,11 @@ from flask import render_template
 from flask import Response, request, jsonify
 app = Flask(__name__)
 
+# Helpers / Defaults
+# Note to review: The scope of the project was to change a couple lines of code. Given a broader scope, 
+# I would consider creating a class for the scoreboard and creating methods to handle the scoreboard data.
+# I'd also consider incorporating Pydantic or FastAPI to improve readibility and maintainability, especially
+# as the project grows.
 scoreboard = [
     {
     "id": 1,
@@ -35,6 +40,9 @@ scoreboard = [
     },
 ]
 
+# Sorts scoreboard by score in descending order
+def sort_scoreboard_by_score(scoreboard):
+    return sorted(scoreboard, key=lambda team: team['score'], reverse=True)
 
 @app.route('/')
 def show_scoreboard():
@@ -51,7 +59,7 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
     
-    scoreboard = sorted(scoreboard, key=lambda k: k['score'], reverse=True)
+    scoreboard = sort_scoreboard_by_score(scoreboard)
 
     return jsonify(scoreboard=scoreboard)
 

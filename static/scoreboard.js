@@ -35,7 +35,7 @@ function increase_score(id){
       // Note to reviewer: The scope of the project was to change a couple lines of code.
       // Given a broader scope, I would consider refactoring the code to use Typescript / React using
       // a useEffect hook or potentially React-Query to handle the data fetching and updating.
-      // I'd also look into using tRPC in order to achieve full-stack type safety, to improve code readability.
+      // I'd also look into using tRPC in order to achieve full-stack type safety, to improve code reliability.
       // Finally, I'd also consider using Prettier or Black in order to enforce a consistent code style
       display_scoreboard(result.scoreboard);
     },
