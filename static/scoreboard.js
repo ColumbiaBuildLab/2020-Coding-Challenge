@@ -1,4 +1,5 @@
 function display_scoreboard(scoreboard){
+  scoreboard.sort((a, b) => b.score - a.score); // Sorts the initial data
   $("#teams").empty();
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
@@ -32,7 +33,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+         // Changing the code to update the scoreboard with the sorted data
+         updateScoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
@@ -43,6 +45,13 @@ function increase_score(id){
   });
 }
 
+// Adding a function that clears the existing scoreboard and then adds the teams based on the sorted data
+function updateScoreboard(data) {
+  $("#teams").empty(); // Clears the existing scoreboard
+  $.each(data, function (index, team) {
+      addTeamView(team.id, team.name, team.score);
+  });
+}
 $(document).ready(function(){
   display_scoreboard(scoreboard);
 })
