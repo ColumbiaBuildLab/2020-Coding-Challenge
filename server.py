@@ -43,15 +43,21 @@ def show_scoreboard():
 @app.route('/increase_score', methods=['GET', 'POST'])
 def increase_score():
     global scoreboard
-
+    # if there's a button pushed, sends .json file over
     json_data = request.get_json()   
+    print(json_data)
     team_id = json_data["id"]  
     
     for team in scoreboard:
         if team["id"] == team_id:
-            team["score"] += 1
+            team["score"] += 1 
+    # sorts the scoreboard by the 'score' in increasing order
+    # scoreboard.sort(key=lambda x: x["score"])
 
-    return jsonify(scoreboard=scoreboard)
+    # this sorts in non-increasing order
+    scoreboard.sort(key= lambda x: x["score"], reverse = True )
+
+    return jsonify(scoreboard = scoreboard)
 
 
 if __name__ == '__main__':
