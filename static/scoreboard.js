@@ -11,7 +11,7 @@ function addTeamView(id, name, score){
   var score_template = $("<div class = col-md-2></div>");
   var button_template = $("<div class = col-md-2></div>");
   var increase_button = $("<button class = increase-button>+</button>");
-  $(increase_button).on( "click", function(){ //should I use .on() instead?
+  $(increase_button).on( "click", function(){
     increase_score(id);
   });
   name_template.text(name);
@@ -33,7 +33,6 @@ function increase_score(id){
     data : JSON.stringify(team_id),
     success: function(result){
       console.log("Success");
-      console.log(result);
       display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
