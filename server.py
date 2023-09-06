@@ -41,6 +41,7 @@ def show_scoreboard():
     return render_template('scoreboard.html', scoreboard = scoreboard) 
 
 @app.route('/increase_score', methods=['GET', 'POST'])
+
 def increase_score():
     global scoreboard
 
@@ -50,6 +51,20 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+            sorting(scoreboard)
+    # Calling the sorting method to sort the scores.
+            
+    
+    # Helper method to help with the sorting of the scores.
+def sorting(scores):
+    for i in range(1, len(scores)):
+        toSort = scores[i]
+        n = i - 1   
+        while n >= 0 and toSort["score"] > scores[n]["score"]:
+            scores[n+1] = scores[n]
+            n = n -1
+    scores[n + 1] = toSort
+
 
     return jsonify(scoreboard=scoreboard)
 
