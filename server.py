@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
+import operator
 app = Flask(__name__)
 
 scoreboard = [
@@ -50,6 +51,7 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+
 
     return jsonify(scoreboard=scoreboard)
 
