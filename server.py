@@ -40,6 +40,13 @@ scoreboard = [
 def show_scoreboard():
     return render_template('scoreboard.html', scoreboard = scoreboard) 
 
+@app.route('/get_update_scoreboard', methods=['GET'])
+def get_update_scoreboard():
+
+    sorted_scoreboard = sorted(scoreboard, key=lambda x: x['score'], reverse=True)
+
+    return jsonify(scoreboard=sorted_scoreboard)
+
 @app.route('/increase_score', methods=['GET', 'POST'])
 def increase_score():
     global scoreboard
