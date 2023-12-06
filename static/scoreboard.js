@@ -5,6 +5,7 @@ function display_scoreboard(scoreboard) {
   });
 }
 
+
 function addTeamView(id, name, score) {
   var team_template = $("<div class = row></div>");
   var name_template = $("<div class = col-md-5></div>");
