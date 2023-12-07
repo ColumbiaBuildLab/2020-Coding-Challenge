@@ -43,6 +43,14 @@ function increase_score(id){
   });
 }
 
+function auto_refresh() {
+  $.get('/get_update_scoreboard', function(data) {
+    display_scoreboard(data.scoreboard);
+  });
+}
+
 $(document).ready(function(){
   display_scoreboard(scoreboard);
+
+  setInterval(auto_refresh, 300);
 })
