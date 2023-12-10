@@ -35,8 +35,7 @@ function increase_score(id){
 
         /* getting the scoreboard with the increased score, then rebuilding the board
         to include the new score and account for potential re-sorting in server.py */
-        var updated = result.scoreboard;
-        display_scoreboard(updated)
+        display_scoreboard(result.scoreboard)
     },
     error: function(request, status, error){
         console.log("Error");
