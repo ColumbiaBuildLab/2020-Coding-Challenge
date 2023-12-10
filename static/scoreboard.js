@@ -32,7 +32,10 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+
+        /* getting the scoreboard with the increased score, then rebuilding the board
+        to include the new score and account for potential re-sorting in server.py */
+        display_scoreboard(result.scoreboard)
     },
     error: function(request, status, error){
         console.log("Error");
