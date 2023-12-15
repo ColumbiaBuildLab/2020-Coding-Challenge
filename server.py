@@ -51,6 +51,8 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
 
+    #updated_score = next((team["score"] for team in scoreboard if team["id"] == team_id), None)
+    #return jsonify(id=team_id, score=updated_score)
     return jsonify(scoreboard=scoreboard)
 
 
