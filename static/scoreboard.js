@@ -12,6 +12,7 @@ function addTeamView(id, name, score){
   var button_template = $("<div class = col-md-2></div>");
   var increase_button = $("<button class = increase-button>+</button>");
   $(increase_button).click(function(){
+    // Executes increase_score function every time an increase_button is clicked
     increase_score(id);
   });
   name_template.text(name);
@@ -32,7 +33,9 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      // Displays scoreboard returned by the increase_score function in server.py
+      // increase_score function returns scoreboard in JSON format
+      display_scoreboard(result["scoreboard"]);
     },
     error: function(request, status, error){
         console.log("Error");
