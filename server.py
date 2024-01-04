@@ -45,7 +45,7 @@ def increase_score():
     global scoreboard
 
     json_data = request.get_json()   
-    team_id = json_data["id"]  
+    team_id = json_data["id"]
     
     for team in scoreboard:
         if team["id"] == team_id:
