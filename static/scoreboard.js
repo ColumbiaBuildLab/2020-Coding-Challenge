@@ -32,7 +32,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      display_scoreboard(result.scoreboard); //Add this line for updated scoreboard.
     },
     error: function(request, status, error){
         console.log("Error");
@@ -42,6 +42,7 @@ function increase_score(id){
     }
   });
 }
+
 
 $(document).ready(function(){
   display_scoreboard(scoreboard);
