@@ -1,19 +1,26 @@
-function display_scoreboard(scoreboard){
+function display_scoreboard(scoreboard) {
   $("#teams").empty();
-  $.each(scoreboard, function(index, team){
+  $.each(scoreboard, function (index, team) {
     addTeamView(team.id, team.name, team.score);
   });
 }
 
-function addTeamView(id, name, score){
+function addTeamView(id, name, score) {
   var team_template = $("<div class = row></div>");
   var name_template = $("<div class = col-md-5></div>");
   var score_template = $("<div class = col-md-2></div>");
   var button_template = $("<div class = col-md-2></div>");
   var increase_button = $("<button class = increase-button>+</button>");
-  $(increase_button).click(function(){
-    increase_score(id);
+  $(increase_button).click(function () {
+    console.log("Increase button clicked for team ID:", id);
+    increase_score(id).then(function (result) {
+      console.log("Score increased successfully!");
+      display_scoreboard(result.scoreboard);
+    }).catch(function (error) {
+      console.error("Error occurred while increasing score:", error);
+    });
   });
+
   name_template.text(name);
   score_template.text(score);
   button_template.append(increase_button);
@@ -23,26 +30,26 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
-function increase_score(id){
-  var team_id = {"id": id}
-  $.ajax({
-    type: "POST",
-    url: "increase_score",                
-    dataType : "json",
-    contentType: "application/json; charset=utf-8",
-    data : JSON.stringify(team_id),
-    success: function(result){
-        
-    },
-    error: function(request, status, error){
-        console.log("Error");
-        console.log(request)
-        console.log(status)
-        console.log(error)
-    }
+function increase_score(id) {
+  var team_id = { "id": id };
+  return new Promise(function (resolve, reject) { //had function return a promise instead of previous approach
+    $.ajax({
+      type: "POST",
+      url: "increase_score",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify(team_id),
+      success: function (result) {
+        resolve(result); //returns the scoreboard object.
+      },
+      error: function (error) {
+        reject(error);
+      }
+    });
   });
 }
 
-$(document).ready(function(){
+
+$(document).ready(function () {
   display_scoreboard(scoreboard);
 })
