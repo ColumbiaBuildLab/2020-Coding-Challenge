@@ -35,6 +35,15 @@ scoreboard = [
     },
 ]
 
+class reversor:
+    def __init__(self, obj):
+        self.obj = obj
+
+    def __eq__(self, other):
+        return other.obj == self.obj
+
+    def __lt__(self, other):
+        return other.obj < self.obj
 
 @app.route('/')
 def show_scoreboard():
@@ -50,6 +59,8 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+
+    scoreboard = sorted(scoreboard,key= lambda json_obj: (reversor(json_obj["score"]),json_obj["name"]))
 
     return jsonify(scoreboard=scoreboard)
 
