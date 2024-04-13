@@ -50,8 +50,10 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
-
+    
     return jsonify(scoreboard=scoreboard)
+
+#@app.route('/view', methods=['GET', 'POST'])
 
 
 if __name__ == '__main__':
