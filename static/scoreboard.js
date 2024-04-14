@@ -13,6 +13,7 @@ function addTeamView(id, name, score){
   var increase_button = $("<button class = increase-button>+</button>");
   $(increase_button).click(function(){
     increase_score(id);
+
   });
   name_template.text(name);
   score_template.text(score);
@@ -31,8 +32,10 @@ function increase_score(id){
     dataType : "json",
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
+
+    // on success: calls the display_scoreboard function to update the scores before refresh.
     success: function(result){
-        
+        display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");

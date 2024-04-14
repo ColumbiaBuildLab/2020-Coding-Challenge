@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
+from collections import OrderedDict
 app = Flask(__name__)
 
 scoreboard = [
@@ -50,8 +51,11 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+    
+    # added sorting to teams by non-increasing order of scores
+    temp_scoreboard = sorted(scoreboard, key=lambda kv: kv['score'], reverse=True)
 
-    return jsonify(scoreboard=scoreboard)
+    return jsonify(scoreboard=temp_scoreboard)
 
 
 if __name__ == '__main__':
