@@ -53,7 +53,7 @@ def increase_score():
             scoreboard.sort(key=lambda x: x["score"], reverse=True)
             return jsonify(scoreboard)
 
-
+#
 if __name__ == '__main__':
    app.run(debug = True)
 
