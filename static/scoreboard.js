@@ -1,4 +1,9 @@
 function display_scoreboard(scoreboard){
+  // sort the scoreboard based on non-increasing order of scores
+  scoreboard.sort(function(team0, team1) {
+    return team1.score - team0.score;
+  });
+
   $("#teams").empty();
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
@@ -32,7 +37,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        // update frontend view to immediately reflect change 
+        display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
