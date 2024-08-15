@@ -35,7 +35,6 @@ scoreboard = [
     },
 ]
 
-
 @app.route('/')
 def show_scoreboard():
     return render_template('scoreboard.html', scoreboard = scoreboard) 
@@ -51,8 +50,28 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
 
+    quickSort(scoreboard, 0, len(scoreboard) - 1)
     return jsonify(scoreboard=scoreboard)
 
+def quickSort(scoreboard, start, end):
+    if (start >= end):
+        return
+    left, right = start, end
+    mid = (left + right) // 2
+    pivot = scoreboard[mid]["score"]
+    
+    while (left <= right):
+        while (left <= right and scoreboard[left]["score"] > pivot):
+            left += 1
+        while (left <= right and scoreboard[right]["score"] < pivot):
+            right -= 1
+        if (left <= right):
+            scoreboard[left], scoreboard[right] = scoreboard[right], scoreboard[left]
+            left += 1
+            right -= 1
+    
+    quickSort(scoreboard, start, right)
+    quickSort(scoreboard, left, end)
 
 if __name__ == '__main__':
    app.run(debug = True)
