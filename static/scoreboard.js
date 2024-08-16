@@ -32,7 +32,17 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        var newScore = result.new_score;
+        for (var i = 0; i < scoreboard.length; i++) {
+          if (scoreboard[i].id === team_id.id) {
+              scoreboard[i].score = newScore;
+              break;
+          }
+        }
+        scoreboard.sort(function(a, b) {
+          return b.score - a.score;
+        });
+        display_scoreboard(scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");

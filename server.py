@@ -50,8 +50,9 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+            new_score = team["score"]
 
-    return jsonify(scoreboard=scoreboard)
+    return jsonify(new_score=new_score)
 
 
 if __name__ == '__main__':
