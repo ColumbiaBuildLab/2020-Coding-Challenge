@@ -45,13 +45,15 @@ def increase_score():
     global scoreboard
 
     json_data = request.get_json()   
-    team_id = json_data["id"]  
-    
+    team_id = json_data["id"]   
+
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
 
-    return jsonify(scoreboard=scoreboard)
+    sorted_scoreboard = sorted(scoreboard, key=lambda x: x["score"], reverse=True) # added this line to sort scoreboard task 2
+    
+    return jsonify(scoreboard=sorted_scoreboard)
 
 
 if __name__ == '__main__':
