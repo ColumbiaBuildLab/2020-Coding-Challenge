@@ -3,6 +3,9 @@ from flask import render_template
 from flask import Response, request, jsonify
 app = Flask(__name__)
 
+def get_score(team):
+    return team["score"]
+
 scoreboard = [
     {
     "id": 1,
@@ -38,7 +41,8 @@ scoreboard = [
 
 @app.route('/')
 def show_scoreboard():
-    return render_template('scoreboard.html', scoreboard = scoreboard) 
+    return render_template('scoreboard.html', scoreboard=scoreboard)
+
 
 @app.route('/increase_score', methods=['GET', 'POST'])
 def increase_score():
@@ -46,17 +50,14 @@ def increase_score():
 
     json_data = request.get_json()   
     team_id = json_data["id"]  
-    
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+
+    scoreboard = sorted(scoreboard, key=get_score, reverse=True)
 
     return jsonify(scoreboard=scoreboard)
 
 
 if __name__ == '__main__':
-   app.run(debug = True)
-
-
-
-
+   app.run(debug=True)
