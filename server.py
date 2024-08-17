@@ -51,7 +51,12 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
 
-    return jsonify(scoreboard=scoreboard)
+    live_scoreboard = sort_by_score_and_name(scoreboard)
+    return jsonify(scoreboard=live_scoreboard) # returning updated scoreboard
+
+def sort_by_score_and_name(data):
+    # Descending order by score and ascending alphabetical order by name
+    return sorted(data, key=lambda x: (-x['score'], x['name'].lower()))
 
 
 if __name__ == '__main__':
