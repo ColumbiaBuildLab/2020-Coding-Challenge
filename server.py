@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
-from flask import Response, request, jsonify
+from flask import request, jsonify
+
 app = Flask(__name__)
 
 scoreboard = [
@@ -9,32 +10,27 @@ scoreboard = [
     "name": "Boston Bruins",
     "score": 7
     },
-
     {
     "id": 2,
     "name": "Tampa Bay Lightning", 
     "score": 5
     },
-
     {
     "id": 3,
     "name": "Toronto Maple Leafs", 
     "score": 2
     },
-
     {
     "id": 4,
     "name": "Florida Panthers", 
     "score": 1
     },
-
     {
     "id": 5,
     "name": "Buffalo Sabres", 
     "score": 1
     },
 ]
-
 
 @app.route('/')
 def show_scoreboard():
@@ -51,12 +47,7 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
 
-    return jsonify(scoreboard=scoreboard)
-
+    return jsonify(scoreboard=sorted(scoreboard, key=lambda team: team["score"], reverse = True))
 
 if __name__ == '__main__':
    app.run(debug = True)
-
-
-
-
