@@ -5,27 +5,93 @@
     <script type="text/javascript" src="{{ url_for('static', filename = 'scoreboard.js') }}"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script>
       var scoreboard = {{scoreboard|tojson}} 
     </script>
-   <style>
-     #title{
-       font-size: 30px;
-       font-weight: bold;
-       color: red;
-       padding: 50px;
-       margin-bottom: 30px;
-     }
-     #reams-input{
-       vertical-align: middle;
-     }
-     #submit-button{
-       vertical-align: middle;
-     }
-     #error-field{
-       color: red;
-     }
-   </style>
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8f9fa;
+      }
+
+      #title {
+        font-size: 36px;
+        font-weight: bold;
+        color: #dc3545;
+        padding: 50px;
+        margin-bottom: 30px;
+        text-align: center;
+        animation: fadeIn 1s ease-out;
+      }
+
+      .team-container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .team-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .team-container .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .increase-button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 12px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .increase-button:hover {
+        background-color: #218838;
+      }
+
+      .increase-button:active {
+        transform: scale(0.95);
+      }
+
+      @media (max-width: 768px) {
+        .team-container {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .team-container .row {
+          justify-content: space-around;
+        }
+
+        .increase-button {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -33,9 +99,7 @@
         2020 NHL Scoreboard
       </div>
       <div class="contents">
-          <div id="teams">
-
-          </div>
+        <div id="teams"></div>
       </div>
     </div>
   </body>
