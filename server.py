@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
+from operator import itemgetter
+
 app = Flask(__name__)
 
 scoreboard = [
@@ -40,7 +42,7 @@ scoreboard = [
 def show_scoreboard():
     return render_template('scoreboard.html', scoreboard = scoreboard) 
 
-@app.route('/increase_score', methods=['GET', 'POST'])
+@app.route('/increase_score', methods=['POST'])
 def increase_score():
     global scoreboard
 
@@ -50,8 +52,14 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+            scoreboard.sort(key = itemgetter('score'), reverse = True)
+            return jsonify(team)
 
-    return jsonify(scoreboard=scoreboard)
+    return jsonify({"error": "Team not found"}), 404
+
+@app.route('/get_score', methods=['GET'])
+def get_score():
+    return jsonify(scoreboard)
 
 
 if __name__ == '__main__':

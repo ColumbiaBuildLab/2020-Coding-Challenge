@@ -32,7 +32,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        $('#score-' + result.id).text(result.score);
+        updateScoreboard();
     },
     error: function(request, status, error){
         console.log("Error");
@@ -43,6 +44,20 @@ function increase_score(id){
   });
 }
 
+function updateScoreboard() {
+  $.ajax({
+    type: "GET",
+    url: "get_score",
+    dataType: "json",
+    success: function(result) {
+      display_scoreboard(result);
+    },
+    error: function(request, status, error) {
+      console.error("Error updating scoreboard:", status, error);
+    }
+  });
+}
+
 $(document).ready(function(){
-  display_scoreboard(scoreboard);
+  updateScoreboard();
 })
