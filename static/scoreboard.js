@@ -23,6 +23,7 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
+
 function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
