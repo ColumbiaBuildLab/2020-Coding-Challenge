@@ -23,22 +23,45 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
-function increase_score(id){
-  var team_id = {"id": id}
+// function increase_score(id){
+//   var team_id = {"id": id}
+//   $.ajax({
+//     type: "POST",
+//     url: "increase_score",                
+//     dataType : "json",
+//     contentType: "application/json; charset=utf-8",
+//     data : JSON.stringify(team_id),
+//     success: function(result){
+        
+//     },
+//     error: function(request, status, error){
+//         console.log("Error");
+//         console.log(request)
+//         console.log(status)
+//         console.log(error)
+//     }
+//   });
+// }
+
+// Name: Kavin Aravindhan Rajkumar
+// UNI: kr3131
+function increase_score(id) {
+  var team_id = {"id": id};
   $.ajax({
     type: "POST",
     url: "increase_score",                
-    dataType : "json",
+    dataType: "json",
     contentType: "application/json; charset=utf-8",
-    data : JSON.stringify(team_id),
-    success: function(result){
-        
+    data: JSON.stringify(team_id),
+    success: function(result) {
+      // Refresh the scoreboard with the updated and sorted scores
+      display_scoreboard(result.scoreboard);
     },
-    error: function(request, status, error){
-        console.log("Error");
-        console.log(request)
-        console.log(status)
-        console.log(error)
+    error: function(request, status, error) {
+      console.log("Error");
+      console.log(request);
+      console.log(status);
+      console.log(error);
     }
   });
 }
