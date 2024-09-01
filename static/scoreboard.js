@@ -1,7 +1,7 @@
 function display_scoreboard(scoreboard){
-  $("#teams").empty();
-  $.each(scoreboard, function(index, team){
-    addTeamView(team.id, team.name, team.score);
+  $("#teams").empty(); //clear scoreboard first/refresh it
+  $.each(scoreboard, function(index, team){ //for each team dict in scoreboard array, execute the function with index as index of array and team as current team obj looking at 
+	addTeamView(team.id, team.name, team.score);
   });
 }
 
@@ -32,7 +32,12 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        //if increase button clicked, then: 
+  	//sort the teams by score, with highest score on top/first,then lowers
+  	//sorting scoreboard in place:
+        result.scoreboard.sort((a, b) => b.score - a.score);
+	display_scoreboard(result.scoreboard);
+
     },
     error: function(request, status, error){
         console.log("Error");
@@ -43,6 +48,8 @@ function increase_score(id){
   });
 }
 
+//first time document is ready you want to display the scoreboard 
 $(document).ready(function(){
   display_scoreboard(scoreboard);
 })
+
