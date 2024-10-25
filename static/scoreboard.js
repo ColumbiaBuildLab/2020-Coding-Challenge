@@ -5,6 +5,7 @@ function display_scoreboard(scoreboard){
   });
 }
 
+// Propagates teams
 function addTeamView(id, name, score){
   var team_template = $("<div class = row></div>");
   var name_template = $("<div class = col-md-5></div>");
@@ -23,6 +24,7 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
+// call increase_score when button is clicked
 function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
@@ -32,7 +34,7 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");

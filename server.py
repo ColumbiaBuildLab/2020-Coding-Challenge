@@ -2,7 +2,8 @@ from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
 app = Flask(__name__)
-
+from flask_cors import CORS
+CORS(app)
 scoreboard = [
     {
     "id": 1,
@@ -42,16 +43,18 @@ def show_scoreboard():
 
 @app.route('/increase_score', methods=['GET', 'POST'])
 def increase_score():
-    global scoreboard
+    # if request.methods == 'POST':
+        # print(request)
+        global scoreboard
 
-    json_data = request.get_json()   
-    team_id = json_data["id"]  
-    
-    for team in scoreboard:
-        if team["id"] == team_id:
-            team["score"] += 1
-
-    return jsonify(scoreboard=scoreboard)
+        json_data = request.get_json()   
+        team_id = json_data["id"]  
+        
+        for team in scoreboard:
+            if team["id"] == team_id:
+                team["score"] += 1
+        scoreboard.sort(key=lambda x:x["score"], reverse=True)
+        return jsonify(scoreboard=scoreboard)
 
 
 if __name__ == '__main__':
