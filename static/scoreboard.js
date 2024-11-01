@@ -23,6 +23,15 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
+function compare_teams(team1, team2) { // function to sort teams based on scores
+  score1 = team1["score"];
+  score2 = team2["score"];
+  if (score1 != score2) { // sort by score if scores not equal
+    return score2 - score1; // descending order
+  }
+  return team1["name"].localeCompare(team2["name"]); // sort alphabetically if scores equal
+}
+
 function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
@@ -32,7 +41,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        result["scoreboard"].sort(compare_teams) // call function to sort teams by score
+        display_scoreboard(result["scoreboard"]) // update visible scoreboard
     },
     error: function(request, status, error){
         console.log("Error");
@@ -43,6 +53,4 @@ function increase_score(id){
   });
 }
 
-$(document).ready(function(){
-  display_scoreboard(scoreboard);
-})
+$(document).ready(function
