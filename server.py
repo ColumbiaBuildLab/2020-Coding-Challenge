@@ -1,62 +1,55 @@
-from flask import Flask
-from flask import render_template
-from flask import Response, request, jsonify
-app = Flask(__name__)
+function display_scoreboard(scoreboard){
+  $("#teams").empty();
+  // Sort scoreboard in non-increasing order of scores
+  scoreboard.sort(function(a, b) {
+    return b.score - a.score;
+  });
+  
+  $.each(scoreboard, function(index, team){
+    addTeamView(team.id, team.name, team.score);
+  });
+}
 
-scoreboard = [
-    {
-    "id": 1,
-    "name": "Boston Bruins",
-    "score": 7
+function addTeamView(id, name, score){
+  var team_template = $("<div class = row></div>");
+  var name_template = $("<div class = col-md-5></div>");
+  var score_template = $("<div class = col-md-2></div>");
+  var button_template = $("<div class = col-md-2></div>");
+  var increase_button = $("<button class = increase-button>+</button>");
+  $(increase_button).click(function(){
+    increase_score(id);
+  });
+  name_template.text(name);
+  score_template.text(score);
+  button_template.append(increase_button);
+  team_template.append(name_template);
+  team_template.append(score_template);
+  team_template.append(button_template);
+  $("#teams").append(team_template);
+}
+
+function increase_score(id){
+  var team_id = {"id": id}
+  $.ajax({
+    type: "POST",
+    url: "increase_score",                
+    dataType : "json",
+    contentType: "application/json; charset=utf-8",
+    data : JSON.stringify(team_id),
+    success: function(result){
+       // Call display_scoreboard with updated data from the server
+       display_scoreboard(result.scoreboard);
+        
     },
+    error: function(request, status, error){
+        console.log("Error");
+        console.log(request)
+        console.log(status)
+        console.log(error)
+    }
+  });
+}
 
-    {
-    "id": 2,
-    "name": "Tampa Bay Lightning", 
-    "score": 5
-    },
-
-    {
-    "id": 3,
-    "name": "Toronto Maple Leafs", 
-    "score": 2
-    },
-
-    {
-    "id": 4,
-    "name": "Florida Panthers", 
-    "score": 1
-    },
-
-    {
-    "id": 5,
-    "name": "Buffalo Sabres", 
-    "score": 1
-    },
-]
-
-
-@app.route('/')
-def show_scoreboard():
-    return render_template('scoreboard.html', scoreboard = scoreboard) 
-
-@app.route('/increase_score', methods=['GET', 'POST'])
-def increase_score():
-    global scoreboard
-
-    json_data = request.get_json()   
-    team_id = json_data["id"]  
-    
-    for team in scoreboard:
-        if team["id"] == team_id:
-            team["score"] += 1
-
-    return jsonify(scoreboard=scoreboard)
-
-
-if __name__ == '__main__':
-   app.run(debug = True)
-
-
-
-
+$(document).ready(function(){
+  display_scoreboard(scoreboard);
+})
