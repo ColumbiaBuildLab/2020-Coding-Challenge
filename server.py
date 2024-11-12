@@ -1,3 +1,7 @@
+# Name: Colin Julius Emmanuel
+# UNI: cje2135
+
+
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
@@ -38,9 +42,11 @@ scoreboard = [
 
 @app.route('/')
 def show_scoreboard():
-    return render_template('scoreboard.html', scoreboard = scoreboard) 
+    # Sort the scoreboard by score in descending order initially
+    sorted_scoreboard = sorted(scoreboard, key=lambda x: x['score'], reverse=True)
+    return render_template('scoreboard.html', scoreboard = sorted_scoreboard) 
 
-@app.route('/increase_score', methods=['GET', 'POST'])
+@app.route('/increase_score', methods=['POST'])
 def increase_score():
     global scoreboard
 
@@ -50,7 +56,13 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+            break
+    
+    # Sort the scoreboard by score in descending order after the update
+    scoreboard.sort(key=lambda x: x['score'], reverse=True)
 
+    #return jsonify(scoreboard=scoreboard)
+    #return jsonify({"success": True, "score": team["score"]})
     return jsonify(scoreboard=scoreboard)
 
 
