@@ -32,7 +32,16 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        var updated_score = result.score
+        var updated_scoreboard = result.scoreboard 
+        for (var i = 0; i< updated_scoreboard.length; i++) {
+          var team = updated_scoreboard[i];
+          if (team.id === id) {
+            var team_view = $('#teams').children().eq(i); 
+            team_view.children().eq(1).text(updated_score); 
+            break;   
+          }}
+          
     },
     error: function(request, status, error){
         console.log("Error");
