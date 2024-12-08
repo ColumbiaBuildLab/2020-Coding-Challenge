@@ -32,7 +32,25 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
+      result.scoreboard.forEach(function(team) {
+        var teamRow = $('div.row').filter(function() {
+            return $(this).find('div.col-md-5').text() === team.name;
+        });
         
+        teamRow.find('div.col-md-2').first().text(team.score);
+    });
+
+    var rows = $('div.row').get();
+    rows.sort(function(a, b) {
+        var scoreA = parseInt($(a).find('div.col-md-2').first().text());
+        var scoreB = parseInt($(b).find('div.col-md-2').first().text());
+        return scoreB - scoreA;
+    });
+
+    var teamsContainer = $("#teams");
+    rows.forEach(function(row) {
+        teamsContainer.append(row);
+    });
     },
     error: function(request, status, error){
         console.log("Error");
