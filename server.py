@@ -50,6 +50,8 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+            # sort scoreboard
+            scoreboard = sorted(scoreboard, key=lambda d: d["score"], reverse=True)
 
     return jsonify(scoreboard=scoreboard)
 
