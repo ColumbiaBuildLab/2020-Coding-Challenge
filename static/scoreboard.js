@@ -1,5 +1,8 @@
 function display_scoreboard(scoreboard){
+  //clears the existing list
   $("#teams").empty();
+
+  //re-render the list with the sorted scores
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
@@ -11,9 +14,12 @@ function addTeamView(id, name, score){
   var score_template = $("<div class = col-md-2></div>");
   var button_template = $("<div class = col-md-2></div>");
   var increase_button = $("<button class = increase-button>+</button>");
+
+  //attatch click handler
   $(increase_button).click(function(){
     increase_score(id);
   });
+
   name_template.text(name);
   score_template.text(score);
   button_template.append(increase_button);
@@ -32,7 +38,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        //re-render the scoreboard with the updated list
+        display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
@@ -43,6 +50,7 @@ function increase_score(id){
   });
 }
 
+//initialize scoreboard on document ready
 $(document).ready(function(){
   display_scoreboard(scoreboard);
 })
