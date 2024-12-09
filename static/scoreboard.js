@@ -1,3 +1,5 @@
+//Shir Shachar SS6814
+
 function display_scoreboard(scoreboard){
   $("#teams").empty();
   $.each(scoreboard, function(index, team){
@@ -31,7 +33,9 @@ function increase_score(id){
     dataType : "json",
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
-    success: function(result){
+    success: function(response){
+      //changes to in time updates 
+      display_scoreboard(response.scoreboard);
         
     },
     error: function(request, status, error){
