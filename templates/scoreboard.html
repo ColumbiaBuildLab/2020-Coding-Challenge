@@ -1,42 +1,48 @@
 <html>
-  <head>
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename = 'scoreboard.js') }}"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-    <script>
-      var scoreboard = {{scoreboard|tojson}} 
-    </script>
-   <style>
-     #title{
-       font-size: 30px;
-       font-weight: bold;
-       color: red;
-       padding: 50px;
-       margin-bottom: 30px;
-     }
-     #reams-input{
-       vertical-align: middle;
-     }
-     #submit-button{
-       vertical-align: middle;
-     }
-     #error-field{
-       color: red;
-     }
-   </style>
-  </head>
-  <body>
-    <div class="container">
-      <div id="title">
-        2020 NHL Scoreboard
-      </div>
-      <div class="contents">
-          <div id="teams">
 
-          </div>
+<head>
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename = 'scoreboard.js') }}"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <script>
+    var scoreboard = {{ scoreboard| tojson}} 
+  </script>
+  <style>
+    #title {
+      font-size: 30px;
+      font-weight: bold;
+      color: red;
+      padding: 50px;
+      margin-bottom: 30px;
+    }
+
+    #reams-input {
+      vertical-align: middle;
+    }
+
+    #submit-button {
+      vertical-align: middle;
+    }
+
+    #error-field {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div id="title">
+      2020 NHL Scoreboard
+    </div>
+    <div class="contents">
+      <div id="teams">
+
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
