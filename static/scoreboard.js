@@ -15,7 +15,7 @@ function addTeamView(id, name, score){
     increase_score(id);
   });
   name_template.text(name);
-  score_template.text(score);
+  score_template.html(`<span id="score-${id}">${score}</span>`);
   button_template.append(increase_button);
   team_template.append(name_template);
   team_template.append(score_template);
@@ -32,7 +32,12 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        const refreshedScoreboard = result.scoreboard;
+        refreshedScoreboard.sort((x,y) => x.score - y.score);
+        display_scoreboard(refreshedScoreboard);
+        refreshedScoreboard.forEach(team => {
+          $(`#score-${team.id}`).text(team.score);
+        });
     },
     error: function(request, status, error){
         console.log("Error");
