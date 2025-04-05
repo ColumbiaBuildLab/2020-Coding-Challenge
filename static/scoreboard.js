@@ -27,7 +27,7 @@ function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
     type: "POST",
-    url: "increase_score",                
+    url: "/increase_score",                
     dataType : "json",
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
@@ -44,5 +44,20 @@ function increase_score(id){
 }
 
 $(document).ready(function(){
-  display_scoreboard(scoreboard);
-})
+    //initally displaying the scoreboard when website loads
+    display_scoreboard(scoreboard);
+  
+    //set up SSE connection
+    const event_source = new EventSource('/stream');
+      
+    //parsing JSON data and updating/displaying the scoreboard
+    event_source.onmessage = function(event){
+        const updatedScoreboard = JSON.parse(event.data);
+        display_scoreboard(updatedScoreboard);
+    };
+    //error handeling for the connection between EventSource
+    event_source.onerror = function(error) {
+        console.error("EventSource failed:", error);
+    };
+  
+});
