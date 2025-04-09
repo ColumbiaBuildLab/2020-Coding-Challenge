@@ -6,14 +6,19 @@ function display_scoreboard(scoreboard){
 }
 
 function addTeamView(id, name, score){
-  var team_template = $("<div class = row></div>");
+  //var team_template = $("<div class = row></div>"); replaced line below
+  var team_template = $("<div class = row data-team-id='" + id + "'></div>"); //added id tracker
   var name_template = $("<div class = col-md-5></div>");
-  var score_template = $("<div class = col-md-2></div>");
+  //var score_template = $("<div class = col-md-2></div>"); replaced line below
+  var score_template = $("<div class='col-md-2 team-score'></div>"); // added class name here
   var button_template = $("<div class = col-md-2></div>");
   var increase_button = $("<button class = increase-button>+</button>");
+
   $(increase_button).click(function(){
+    //console.log("Increasing score for ID:", id);
     increase_score(id);
   });
+
   name_template.text(name);
   score_template.text(score);
   button_template.append(increase_button);
@@ -25,6 +30,13 @@ function addTeamView(id, name, score){
 
 function increase_score(id){
   var team_id = {"id": id}
+  var scoreElement = $(".row[data-team-id='" + id + "'] .team-score");
+  var currentScore = parseInt(scoreElement.text(), 10);
+
+  //Changes
+  var newScore = currentScore + 1;
+  scoreElement.text(newScore);
+
   $.ajax({
     type: "POST",
     url: "increase_score",                
@@ -32,7 +44,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      //console.log("Score updated:", result.score);
+      display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");

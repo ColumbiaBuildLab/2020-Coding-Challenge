@@ -47,9 +47,18 @@ def increase_score():
     json_data = request.get_json()   
     team_id = json_data["id"]  
     
+    #Changed code
+    #for team in scoreboard:
+    #    if team["id"] == team_id:
+     #       team["score"] += 1
+
+    #New code to handle the reordering
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+            break
+    #Actual reordering
+    scoreboard.sort(key=lambda t: t["score"], reverse=True)
 
     return jsonify(scoreboard=scoreboard)
 
