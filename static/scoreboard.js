@@ -31,9 +31,22 @@ function increase_score(id){
     dataType : "json",
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
+
     success: function(result){
+
+      var updated_scoreboard = result.scoreboard;
+      
+      updated_scoreboard.sort(function(a, b) {
         
+        return b.score - a.score;
+      
+      });
+
+      display_scoreboard(updated_scoreboard);
+    
     },
+
+
     error: function(request, status, error){
         console.log("Error");
         console.log(request)
