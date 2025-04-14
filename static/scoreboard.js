@@ -32,7 +32,9 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      //making it that as soon as the score is increased, the list is updated:
+      display_scoreboard(result.scoreboard)
+      //I updated the current scoreboard to the new scoreboard from func result
     },
     error: function(request, status, error){
         console.log("Error");
