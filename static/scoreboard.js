@@ -1,6 +1,17 @@
 function display_scoreboard(scoreboard){
   $("#teams").empty();
-  $.each(scoreboard, function(index, team){
+
+  // sort scoreboard by score then by name
+  const sorted = scoreboard.slice();
+  sorted.sort(function(a, b){
+    if (a.score === b.score) {
+      return a.name.localeCompare(b.name);
+    }
+    return b.score - a.score;
+  }
+  );
+
+  $.each(sorted, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
 }
@@ -32,7 +43,9 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      const { scoreboard } = result;
+      window.__scoreboard__ = scoreboard;
+      display_scoreboard(window.__scoreboard__);        
     },
     error: function(request, status, error){
         console.log("Error");
@@ -44,5 +57,5 @@ function increase_score(id){
 }
 
 $(document).ready(function(){
-  display_scoreboard(scoreboard);
+  display_scoreboard(window.__scoreboard__);
 })
