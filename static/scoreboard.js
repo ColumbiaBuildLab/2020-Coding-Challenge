@@ -32,7 +32,11 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        // Display scoreboard and sort in non-increasing order of scores
+        result.scoreboard.sort(function(a, b){
+          return (b.score - a.score);
+        });
+        display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
