@@ -31,8 +31,11 @@ function increase_score(id){
     dataType : "json",
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
-    success: function(result){
-        
+    success: function(result){    
+      
+      // Gets the latest scoreboard and update it as scores change
+      latestBoard = result.scoreboard
+      display_scoreboard(latestBoard)
     },
     error: function(request, status, error){
         console.log("Error");
