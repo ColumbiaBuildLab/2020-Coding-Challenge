@@ -1,6 +1,12 @@
 function display_scoreboard(scoreboard){
+
+  // Sort by score descending each time we render
+  const sorted = scoreboard.slice().sort(function (a, b) {
+    return b.score - a.score;
+  });
+
   $("#teams").empty();
-  $.each(scoreboard, function(index, team){
+  $.each(sorted, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
 }
@@ -32,6 +38,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
+      // Re-render immediately with the updated (and sorted) scoreboard
+      display_scoreboard(result.scoreboard);
         
     },
     error: function(request, status, error){
