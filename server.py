@@ -47,10 +47,22 @@ def increase_score():
     json_data = request.get_json()   
     team_id = json_data["id"]  
     
-    for team in scoreboard:
-        if team["id"] == team_id:
-            team["score"] += 1
+    #find the team whose score was changed
+    idx = next(i for i, team in enumerate(scoreboard) if team["id"]==team_id)
+    scoreboard[idx]["score"] += 1
+    team = scoreboard.pop(idx) #remove the team from its current position
 
+    #find the correct position for the team above
+    #since list is sorted, only check from the top till you get next team with lower score
+    insert_idx = 0
+    while insert_idx<len(scoreboard) and scoreboard[insert_idx]["score"]>=team["score"]:
+        insert_idx += 1
+    scoreboard.insert(insert_idx, team)
+
+    # for team in scoreboard:
+    #     if team["id"] == team_id:
+    #         team["score"] += 1
+    # scoreboard.sort(key=lambda x: x["score"], reverse=True) #O(N * log N)
     return jsonify(scoreboard=scoreboard)
 
 
