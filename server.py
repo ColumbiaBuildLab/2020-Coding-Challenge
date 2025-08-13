@@ -47,11 +47,18 @@ def increase_score():
     json_data = request.get_json()   
     team_id = json_data["id"]  
     
+    #manage invalid id's 
+    if team_id is None:
+        return jsonify({"error" : "Missing team id"}), 400
+    
+
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
 
+
     return jsonify(scoreboard=scoreboard)
+
 
 
 if __name__ == '__main__':

@@ -32,6 +32,12 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
+      //result.scoreboard is the updated array from the server. sort teams by score descending 
+      result.scoreboard.sort(function(a,b){
+        return b.score - a.score;
+      });
+
+      display_scoreboard(result.scoreboard);
         
     },
     error: function(request, status, error){
