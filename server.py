@@ -53,6 +53,19 @@ def increase_score():
 
     return jsonify(scoreboard=scoreboard)
 
+@app.route('/update_order', methods=['POST'])
+def update_order():
+    global scoreboard
+    json_data = request.get_json()
+    new_order = json_data["order"]
+    team_dict = {team["id"]: team for team in scoreboard}
+    updated_scoreboard = []
+    for team_id in new_order:
+        if team_id in team_dict:
+            updated_scoreboard.append(team_dict[team_id])
+    
+    scoreboard = updated_scoreboard
+    return jsonify(success=True)
 
 if __name__ == '__main__':
    app.run(debug = True)
