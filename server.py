@@ -51,12 +51,12 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
 
+    #  Added sorting to display teams in descending order by score
+    # This ensures the highest-scoring teams appear at the top after each update
+    scoreboard.sort(key=lambda x: x["score"], reverse=True)
+
     return jsonify(scoreboard=scoreboard)
 
 
 if __name__ == '__main__':
    app.run(debug = True)
-
-
-
-
