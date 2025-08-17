@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
 app = Flask(__name__)
-
+# edit for pull request
 scoreboard = [
     {
     "id": 1,
@@ -51,6 +51,8 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
 
+    scoreboard = sorted(scoreboard, key=lambda x: x['score'], reverse=True)
+    
     return jsonify(scoreboard=scoreboard)
 
 
