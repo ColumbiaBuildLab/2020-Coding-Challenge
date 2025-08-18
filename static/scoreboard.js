@@ -1,6 +1,11 @@
 function display_scoreboard(scoreboard){
+  const sorted = [...scoreboard].sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    return a.name.localeCompare(b.name);
+  });
+
   $("#teams").empty();
-  $.each(scoreboard, function(index, team){
+  $.each(sorted, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
 }
@@ -32,7 +37,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      display_scoreboard(result.scoreboard);
+      //console.log("I need to refresh");
     },
     error: function(request, status, error){
         console.log("Error");
