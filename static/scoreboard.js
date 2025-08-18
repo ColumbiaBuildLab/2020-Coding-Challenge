@@ -44,6 +44,5 @@ function increase_score(id){
 }
 
 $(document).ready(function(){
-  scoreboard.sort(function(a,b){return b.score-a.score;});
   display_scoreboard(scoreboard);
 })
