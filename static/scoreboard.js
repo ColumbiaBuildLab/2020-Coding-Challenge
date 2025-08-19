@@ -3,9 +3,10 @@ function display_scoreboard(scoreboard){
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
-}
-
-function addTeamView(id, name, score){
+ }
+ 
+ 
+ function addTeamView(id, name, score){
   var team_template = $("<div class = row></div>");
   var name_template = $("<div class = col-md-5></div>");
   var score_template = $("<div class = col-md-2></div>");
@@ -21,18 +22,19 @@ function addTeamView(id, name, score){
   team_template.append(score_template);
   team_template.append(button_template);
   $("#teams").append(team_template);
-}
-
-function increase_score(id){
+ }
+ 
+ 
+ function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
     type: "POST",
-    url: "increase_score",                
+    url: "increase_score",               
     dataType : "json",
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        display_scoreboard(result.scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
@@ -41,8 +43,12 @@ function increase_score(id){
         console.log(error)
     }
   });
-}
-
-$(document).ready(function(){
+ }
+ 
+ 
+ 
+ 
+ $(document).ready(function(){
   display_scoreboard(scoreboard);
-})
+ })
+ 
