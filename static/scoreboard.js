@@ -1,6 +1,8 @@
 function display_scoreboard(scoreboard){
   $("#teams").empty();
-  $.each(scoreboard, function(index, team){
+  // sort the passed array before displaying
+  let sortedScoreboard = [...scoreboard].sort((a, b) => b.score - a.score);
+  $.each(sortedScoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
 }
@@ -31,7 +33,13 @@ function increase_score(id){
     dataType : "json",
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
+    // need to return the JSON result's val of scoreboard 
     success: function(result){
+        console.log("Success");
+        console.log(result);
+        console.log("Scoreboard:");
+        console.log(result.scoreboard);
+        display_scoreboard(result.scoreboard);
         
     },
     error: function(request, status, error){
