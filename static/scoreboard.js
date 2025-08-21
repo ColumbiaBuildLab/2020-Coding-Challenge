@@ -1,48 +1,56 @@
-function display_scoreboard(scoreboard){
-  $("#teams").empty();
-  $.each(scoreboard, function(index, team){
-    addTeamView(team.id, team.name, team.score);
+function display_scoreboard(board) {
+  const $teams = $("#teams");
+  $teams.empty();
+  $.each(board, function (_, team) {
+    addTeamView(team.id, team.name, team.score, $teams);
   });
 }
 
-function addTeamView(id, name, score){
-  var team_template = $("<div class = row></div>");
-  var name_template = $("<div class = col-md-5></div>");
-  var score_template = $("<div class = col-md-2></div>");
-  var button_template = $("<div class = col-md-2></div>");
-  var increase_button = $("<button class = increase-button>+</button>");
-  $(increase_button).click(function(){
-    increase_score(id);
+function addTeamView(id, name, score, $root) {
+  const $row   = $("<div class='row align-items-center mb-2'></div>");
+  const $name  = $("<div class='col-md-5 team-name'></div>").text(name);
+  const $score = $("<div class='col-md-2 team-score'></div>").text(score);
+  const $btns  = $("<div class='col-md-2'></div>");
+  const $inc   = $("<button class='increase-button'>+1</button>");
+
+  $inc.on("click", function () {
+    // Disable while request is in-flight to avoid double taps
+    $inc.prop("disabled", true);
+    increase_score(id).always(() => $inc.prop("disabled", false));
   });
-  name_template.text(name);
-  score_template.text(score);
-  button_template.append(increase_button);
-  team_template.append(name_template);
-  team_template.append(score_template);
-  team_template.append(button_template);
-  $("#teams").append(team_template);
+
+  $btns.append($inc);
+  $row.append($name, $score, $btns);
+  $root.append($row);
 }
 
-function increase_score(id){
-  var team_id = {"id": id}
-  $.ajax({
+function increase_score(id) {
+  return $.ajax({
     type: "POST",
-    url: "increase_score",                
-    dataType : "json",
+    url: "/increase_score",
+    dataType: "json",
     contentType: "application/json; charset=utf-8",
-    data : JSON.stringify(team_id),
-    success: function(result){
-        
+    data: JSON.stringify({ id: id }),
+    success: function (result) {
+      // Server already returns the board sorted by score (desc)
+      if (result && Array.isArray(result.scoreboard)) {
+        display_scoreboard(result.scoreboard);
+      }
     },
-    error: function(request, status, error){
-        console.log("Error");
-        console.log(request)
-        console.log(status)
-        console.log(error)
+    error: function (request, status, error) {
+      console.error("Increase failed:", status, error);
     }
   });
 }
 
-$(document).ready(function(){
-  display_scoreboard(scoreboard);
-})
+$(document).ready(function () {
+  // If the template injected a global `scoreboard`, render it.
+  // Otherwise, fetch the latest from the API.
+  if (Array.isArray(window.scoreboard)) {
+    display_scoreboard(window.scoreboard);
+  } else {
+    $.getJSON("/api/scoreboard", function (res) {
+      display_scoreboard(res.scoreboard || []);
+    });
+  }
+});
