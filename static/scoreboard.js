@@ -23,6 +23,11 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
+// helper function to sort descending scores
+function sortDescending(list) {
+  return list.slice().sort(function(a, b) { return b.score - a.score; });
+}
+
 function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
@@ -32,7 +37,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      // display sorted scores
+      display_scoreboard(sortDescending(result.scoreboard))
     },
     error: function(request, status, error){
         console.log("Error");
