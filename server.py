@@ -3,6 +3,7 @@ from flask import render_template
 from flask import Response, request, jsonify
 app = Flask(__name__)
 
+#List of dicitionaries. 
 scoreboard = [
     {
     "id": 1,
@@ -38,7 +39,8 @@ scoreboard = [
 
 @app.route('/')
 def show_scoreboard():
-    return render_template('scoreboard.html', scoreboard = scoreboard) 
+    sorted_board = sorted(scoreboard, key=lambda s: s["score"], reverse=True)
+    return render_template('scoreboard.html', scoreboard = sorted_board) 
 
 @app.route('/increase_score', methods=['GET', 'POST'])
 def increase_score():

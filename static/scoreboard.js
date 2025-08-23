@@ -32,7 +32,9 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+      sorted_board = result.scoreboard
+      sorted_board = sorted_board.sort((a,b) => Number(b.score) - Number(a.score));
+      display_scoreboard(result.sorted_board);
     },
     error: function(request, status, error){
         console.log("Error");
@@ -41,8 +43,11 @@ function increase_score(id){
         console.log(error)
     }
   });
-}
 
+  }
+
+//renders initial state
 $(document).ready(function(){
   display_scoreboard(scoreboard);
 })
+
