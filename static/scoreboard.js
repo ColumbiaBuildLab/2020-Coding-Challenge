@@ -23,6 +23,11 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
+function sortByScoreDesc(teams) {
+  //make copy of teams and then sort the copy and return sorted
+  return teams.slice().sort((a,b) => b.score - a.score);
+}
+
 function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
@@ -32,7 +37,10 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        display_scoreboard(result.scoreboard);
+        const updated = result.scoreboard;  //grab update score values
+        const sorted = sortByScoreDesc(updated); //sort the scores in non-increasing order
+        display_scoreboard(sorted); //display new scoreboard
+        scoreboard = sorted; //keep in state scoreboard in syn
     },
     error: function(request, status, error){
         console.log("Error");
