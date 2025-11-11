@@ -36,9 +36,13 @@ scoreboard = [
 ]
 
 
+def get_sorted_scoreboard():
+    return sorted(scoreboard, key=lambda t: t["score"], reverse=True)
+
 @app.route('/')
 def show_scoreboard():
-    return render_template('scoreboard.html', scoreboard = scoreboard) 
+    # Ensure initial render is sorted non-increasing by score
+    return render_template('scoreboard.html', scoreboard=get_sorted_scoreboard()) 
 
 @app.route('/increase_score', methods=['GET', 'POST'])
 def increase_score():
@@ -50,13 +54,13 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
-
+    # Keep server-side canonical order sorted by score descending
+    scoreboard.sort(key=lambda t: t["score"], reverse=True)
     return jsonify(scoreboard=scoreboard)
 
 
 if __name__ == '__main__':
    app.run(debug = True)
-
 
 
 
