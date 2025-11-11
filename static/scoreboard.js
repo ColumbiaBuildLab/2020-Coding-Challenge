@@ -1,6 +1,8 @@
 function display_scoreboard(scoreboard){
   $("#teams").empty();
-  $.each(scoreboard, function(index, team){
+  // Sort non-increasing by score for display
+  var sorted = scoreboard.slice().sort(function(a, b){ return b.score - a.score; });
+  $.each(sorted, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
 }
