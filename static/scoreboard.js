@@ -1,48 +1,73 @@
-function display_scoreboard(scoreboard){
-  $("#teams").empty();
-  $.each(scoreboard, function(index, team){
-    addTeamView(team.id, team.name, team.score);
-  });
-}
+class Scoreboard {
+  constructor(containerSelector) {
+    this.$container = $(containerSelector);
+  }
 
-function addTeamView(id, name, score){
-  var team_template = $("<div class = row></div>");
-  var name_template = $("<div class = col-md-5></div>");
-  var score_template = $("<div class = col-md-2></div>");
-  var button_template = $("<div class = col-md-2></div>");
-  var increase_button = $("<button class = increase-button>+</button>");
-  $(increase_button).click(function(){
-    increase_score(id);
-  });
-  name_template.text(name);
-  score_template.text(score);
-  button_template.append(increase_button);
-  team_template.append(name_template);
-  team_template.append(score_template);
-  team_template.append(button_template);
-  $("#teams").append(team_template);
-}
-
-function increase_score(id){
-  var team_id = {"id": id}
-  $.ajax({
-    type: "POST",
-    url: "increase_score",                
-    dataType : "json",
-    contentType: "application/json; charset=utf-8",
-    data : JSON.stringify(team_id),
-    success: function(result){
-        
-    },
-    error: function(request, status, error){
-        console.log("Error");
-        console.log(request)
-        console.log(status)
-        console.log(error)
+  display(scoreboard, animate) {
+    if(animate){
+      this.reorder(scoreboard);
+    } else {
+      this.$container.empty();
+      var self = this;
+      $.each(scoreboard, function(index, teamData){
+        var team = new Team(teamData.id, teamData.name, teamData.score);
+        var teamView = team.createView();
+        self.$container.append(teamView);
+      });
     }
-  });
-}
+  }
 
-$(document).ready(function(){
-  display_scoreboard(scoreboard);
-})
+  reorder(scoreboard) {
+    var $children = this.$container.children();
+    
+    var oldPositions = {};
+    $children.each(function(){
+      var $this = $(this);
+      var id = $this.data('team-id');
+      oldPositions[id] = $this.position().top;
+    });
+    
+    $children.each(function(){
+      var $this = $(this);
+      var id = $this.data('team-id');
+      var team = scoreboard.find(function(t){ return t.id === id; });
+      if(team){
+        $this.find('.col-md-2').first().text(team.score);
+      }
+    });
+    
+    var items = $children.detach().get();
+    items.sort(function(a, b){
+      var aId = $(a).data('team-id');
+      var bId = $(b).data('team-id');
+      var aIdx = scoreboard.findIndex(function(t){ return t.id === aId; });
+      var bIdx = scoreboard.findIndex(function(t){ return t.id === bId; });
+      return aIdx - bIdx;
+    });
+    
+    var self = this;
+    $.each(items, function(i, item){
+      self.$container.append(item);
+    });
+    
+    this.$container.children().each(function(){
+      var $this = $(this);
+      var id = $this.data('team-id');
+      var oldTop = oldPositions[id];
+      var newTop = $this.position().top;
+      var distance = oldTop - newTop;
+      
+      if(distance !== 0){
+        $this.css({
+          'position': 'relative',
+          'top': distance + 'px'
+        });
+        $this.animate({
+          top: 0
+        }, 500, function(){
+          $this.css('position', '');
+        });
+      }
+    });
+  }
+}

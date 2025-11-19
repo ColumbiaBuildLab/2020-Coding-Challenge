@@ -1,0 +1,26 @@
+#title{
+  font-size: 30px;
+  font-weight: bold;
+  color: red;
+  padding: 50px;
+  margin-bottom: 30px;
+}
+
+#reams-input{
+  vertical-align: middle;
+}
+
+#submit-button{
+  vertical-align: middle;
+}
+
+#error-field{
+  color: red;
+}
+
+.team-row{
+  padding: 10px;
+  margin: 5px 0;
+  background: #f8f9fa;
+  border-radius: 5px;
+}
