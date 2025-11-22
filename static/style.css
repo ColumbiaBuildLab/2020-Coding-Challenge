@@ -1,0 +1,128 @@
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.contents {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+.team-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border-left: 4px solid #007bff;
+}
+
+.team-row:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.team-name {
+    flex: 2;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.team-score {
+    flex: 1;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.button-container {
+    flex: 1;
+    text-align: right;
+}
+
+.increase-button {
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.increase-button:hover {
+    background: #218838;
+    transform: scale(1.1);
+}
+
+.increase-button:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .team-row {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .team-name, .team-score, .button-container {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    
+    .button-container {
+        text-align: center;
+    }
+    
+    #title {
+        font-size: 2rem;
+        padding: 20px;
+    }
+}
+
+.team-row:first-child {
+    border-left-color: #ffc107;
+    background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+}
+
+.team-row:nth-child(2) {
+    border-left-color: #6c757d;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.team-row:nth-child(3) {
+    border-left-color: #fd7e14;
+    background: linear-gradient(135deg, #ffe8d6 0%, #ffffff 100%);
+}

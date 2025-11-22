@@ -5,27 +5,10 @@
     <script type="text/javascript" src="{{ url_for('static', filename = 'scoreboard.js') }}"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script>
       var scoreboard = {{scoreboard|tojson}} 
     </script>
-   <style>
-     #title{
-       font-size: 30px;
-       font-weight: bold;
-       color: red;
-       padding: 50px;
-       margin-bottom: 30px;
-     }
-     #reams-input{
-       vertical-align: middle;
-     }
-     #submit-button{
-       vertical-align: middle;
-     }
-     #error-field{
-       color: red;
-     }
-   </style>
   </head>
   <body>
     <div class="container">
