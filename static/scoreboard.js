@@ -1,4 +1,12 @@
 function display_scoreboard(scoreboard){
+  // ensure teams are displayed in descending order by score
+  try{
+    scoreboard.sort(function(a, b){ return b.score - a.score; });
+  } catch(e){
+    // if scoreboard isn't an array or sorting fails, just continue
+    console.log('could not sort scoreboard', e);
+  }
+
   $("#teams").empty();
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
@@ -32,8 +40,12 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
-    },
+    // edit: update the scoreboard immediately based on server response
+    if(result && result.scoreboard){
+      scoreboard = result.scoreboard;
+      display_scoreboard(scoreboard);
+    }
+  },
     error: function(request, status, error){
         console.log("Error");
         console.log(request)
