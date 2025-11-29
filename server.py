@@ -38,6 +38,9 @@ scoreboard = [
 
 @app.route('/')
 def show_scoreboard():
+    # sort scoreboard in descending order by score
+    scoreboard.sort(key=lambda x: x['score'], reverse=True)
+
     return render_template('scoreboard.html', scoreboard = scoreboard) 
 
 @app.route('/increase_score', methods=['GET', 'POST'])
