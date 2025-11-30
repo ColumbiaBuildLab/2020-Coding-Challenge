@@ -1,6 +1,6 @@
-function display_scoreboard(scoreboard){
+function display_scoreboard(scoreboardData){
   $("#teams").empty();
-  $.each(scoreboard, function(index, team){
+  $.each(scoreboardData, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
 }
@@ -24,25 +24,28 @@ function addTeamView(id, name, score){
 }
 
 function increase_score(id){
-  var team_id = {"id": id}
+  var team_id = {"id": id};
   $.ajax({
     type: "POST",
-    url: "increase_score",                
-    dataType : "json",
+    url: "increase_score",
+    dataType: "json",
     contentType: "application/json; charset=utf-8",
-    data : JSON.stringify(team_id),
+    data: JSON.stringify(team_id),
     success: function(result){
-        
+      // Update global scoreboard 
+      scoreboard = result.scoreboard;
+      // Update the scoreboard immediately with the newly sorted data
+      display_scoreboard(scoreboard);
     },
     error: function(request, status, error){
-        console.log("Error");
-        console.log(request)
-        console.log(status)
-        console.log(error)
+      console.log("Error");
+      console.log(request);
+      console.log(status);
+      console.log(error);
     }
   });
 }
 
 $(document).ready(function(){
   display_scoreboard(scoreboard);
-})
+});
