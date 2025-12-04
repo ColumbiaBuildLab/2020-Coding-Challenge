@@ -12,3 +12,7 @@ If you don't have flask on your computer, please install it with $pip install Fl
 
 You'll see a short list of NHL teams, their scores, and buttons to increase their scores. Right now, clicking on a button doesn't increase the score immediately, but you need to refresh the page to see the change. The goal is to reflect this change immediately on the front-end. Once that's done, we would also like to sort the teams so that whenever there's a score change, the list would change so that the teams are listed in non-increasing order of scores from top to bottom (you don't need to sort them alphabetically when there is a tie). To do these, you would need to make changes in both server.py file and scoreboard.js file. When you're done, please send a pull request to this repository with your name and uni in the comment. Thanks and good luck!
 
+# Submission
+Finally, we have an untimed short coding exercise. Go to https://github.com/ColumbiaBuildLab/2020-Coding-Challenge and follow the instructions. Once you're done, send an email to cbl@gsb.columbia.edu stating that you've finished the challenge.
+
+The subject line should be in the format of "[uni] Coding Challenge [github username]". Please commit to finishing the challenge within a week of submitting this application. 
