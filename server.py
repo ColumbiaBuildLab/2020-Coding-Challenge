@@ -40,7 +40,7 @@ scoreboard = [
 def show_scoreboard():
     return render_template('scoreboard.html', scoreboard = scoreboard) 
 
-@app.route('/increase_score', methods=['GET', 'POST'])
+@app.route('/increase_score', methods=['POST'])
 def increase_score():
     global scoreboard
 
