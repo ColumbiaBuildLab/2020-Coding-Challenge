@@ -8,9 +8,11 @@ function display_scoreboard(scoreboard){
 function addTeamView(id, name, score){
   var team_template = $("<div class = row></div>");
   var name_template = $("<div class = col-md-5></div>");
-  var score_template = $("<div class = col-md-2></div>");
+var score_template = $("<div class='col-md-2' id='score-" + id + "'></div>");
+score_template.text(score);
   var button_template = $("<div class = col-md-2></div>");
   var increase_button = $("<button class = increase-button>+</button>");
+  increase_button.data("teamId", id);
   $(increase_button).click(function(){
     increase_score(id);
   });
@@ -24,25 +26,48 @@ function addTeamView(id, name, score){
 }
 
 function increase_score(id){
-  var team_id = {"id": id}
+  var $scoreEl = $("#score-" + id);
+  
+  var $btn = $(":button.increase-button").filter(function(){ return $(this).data("teamId") === id; });
+
+  
+  var current = parseInt($scoreEl.text(), 10) || 0;
+
+  // UI update
+  $scoreEl.text(current + 1);
+  $btn.prop("disabled", true);           
+  var team_id = {"id": id};
   $.ajax({
     type: "POST",
-    url: "increase_score",                
-    dataType : "json",
+    url: "increase_score",
+    dataType: "json",
     contentType: "application/json; charset=utf-8",
-    data : JSON.stringify(team_id),
+    data: JSON.stringify(team_id),
     success: function(result){
-        
-    },
+  if (result && result.scoreboard) {
+    scoreboard = result.scoreboard.slice(); // replace local model
+    display_scoreboard(scoreboard);
+  } else {
+   
+    var $scoreEl = $("#score-" + id);
+    $scoreEl.text((parseInt($scoreEl.text(), 10) || 0) + 1);
+  }
+},
     error: function(request, status, error){
-        console.log("Error");
-        console.log(request)
-        console.log(status)
-        console.log(error)
+      $scoreEl.text(current);
+      console.error("Failed to increase score:", status, error);
+      alert("Could not update score — please try again.");
+    },
+    complete: function(){
+      $btn.prop("disabled", false);
     }
   });
 }
 
-$(document).ready(function(){
-  display_scoreboard(scoreboard);
-})
+  $(document).ready(function(){
+    if (typeof scoreboard !== 'undefined') {
+      display_scoreboard(scoreboard);
+    } else {
+      console.warn('scoreboard is undefined on page');
+    }
+  });
