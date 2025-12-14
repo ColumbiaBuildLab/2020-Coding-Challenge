@@ -24,7 +24,7 @@ function addTeamView(id, name, score){
 }
 
 function increase_score(id){
-  var team_id = {"id": id}
+  var team_id = {"id": id};
   $.ajax({
     type: "POST",
     url: "increase_score",                
@@ -32,8 +32,18 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
-    },
+    // result might be {scoreboard: [...]} OR just [...]
+    scoreboard = result.scoreboard ? result.scoreboard : result;
+
+    // sort high score -> low score
+    scoreboard.sort(function(a, b){
+        return b.score - a.score;
+    });
+
+    // re-render immediately
+    display_scoreboard(scoreboard);
+  },
+
     error: function(request, status, error){
         console.log("Error");
         console.log(request)
