@@ -1,6 +1,12 @@
 function display_scoreboard(scoreboard){
+  // Sort by non-increasing score (stable for ties).
+  const sorted = scoreboard
+    .map((team, index) => ({ team, index }))
+    .sort((a, b) => (b.team.score - a.team.score) || (a.index - b.index))
+    .map(({ team }) => team);
+
   $("#teams").empty();
-  $.each(scoreboard, function(index, team){
+  $.each(sorted, function(index, team){
     addTeamView(team.id, team.name, team.score);
   });
 }
@@ -32,7 +38,9 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        // Update the global scoreboard and re-render immediately.
+        scoreboard = result.scoreboard;
+        display_scoreboard(scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
