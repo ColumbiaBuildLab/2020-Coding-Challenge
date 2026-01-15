@@ -3,6 +3,7 @@ from flask import render_template
 from flask import Response, request, jsonify
 app = Flask(__name__)
 
+#scoreboard is a json file with a hashmap that contains id, name and score
 scoreboard = [
     {
     "id": 1,
@@ -36,11 +37,11 @@ scoreboard = [
 ]
 
 
-@app.route('/')
+@app.route('/') 
 def show_scoreboard():
     return render_template('scoreboard.html', scoreboard = scoreboard) 
 
-@app.route('/increase_score', methods=['GET', 'POST'])
+@app.route('/increase_score', methods=['GET', 'POST']) #when get method is sent, post to update the value and update it on screen 
 def increase_score():
     global scoreboard
 
@@ -50,13 +51,12 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
-
+    
+    prev_team = scoreboard[0]
+    for team in scoreboard:
+        
     return jsonify(scoreboard=scoreboard)
 
-
+#implement sorting algorithm, change the display: use counting sort
 if __name__ == '__main__':
    app.run(debug = True)
-
-
-
-
