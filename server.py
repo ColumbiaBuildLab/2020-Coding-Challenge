@@ -52,8 +52,14 @@ def increase_score():
         if team["id"] == team_id:
             team["score"] += 1
     
-    prev_team = scoreboard[0]
-    for team in scoreboard:
+    for i in range(1, len(scoreboard)):
+        key = scoreboard[i]
+        j = i - 1
+        while j >= 0 and key["score"] > scoreboard[j]["score"]:
+            scoreboard[j + 1] = scoreboard[j]
+            j -= 1
+        scoreboard[j + 1] = key
+
         
     return jsonify(scoreboard=scoreboard)
 
