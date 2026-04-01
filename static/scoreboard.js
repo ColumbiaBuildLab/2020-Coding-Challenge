@@ -32,7 +32,14 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        for(let i = 0; i < scoreboard.length; i++){
+            if(scoreboard[i].id == result.id){
+                scoreboard[i].score = result.score;
+                break;
+            }
+        }
+        scoreboard.sort((a, b) => b.score - a.score);
+        display_scoreboard(scoreboard);
     },
     error: function(request, status, error){
         console.log("Error");
