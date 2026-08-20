@@ -50,9 +50,23 @@ def increase_score():
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
-
+            reorder()
+    
     return jsonify(scoreboard=scoreboard)
 
+def reorder():
+    global scoreboard
+    for i in range(len(scoreboard)):
+        max_score = i
+        for j in range(i + 1, len(scoreboard)):
+            if scoreboard[j]["score"] > scoreboard[max_score]["score"]:
+                max_score = j
+        temp = scoreboard[i]
+        scoreboard[i] = scoreboard[max_score]
+        scoreboard[max_score] = temp
+
+
+    
 
 if __name__ == '__main__':
    app.run(debug = True)
