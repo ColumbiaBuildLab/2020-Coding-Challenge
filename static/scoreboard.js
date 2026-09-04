@@ -23,6 +23,11 @@ function addTeamView(id, name, score){
   $("#teams").append(team_template);
 }
 
+// display the scoreboard on the page every time there was a change in the scoreboard
+function update_scoreboard(){
+  display_scoreboard(scoreboard);
+}
+
 function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
@@ -32,7 +37,8 @@ function increase_score(id){
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
     success: function(result){
-        
+        scoreboard = result.scoreboard;
+        update_scoreboard();
     },
     error: function(request, status, error){
         console.log("Error");
