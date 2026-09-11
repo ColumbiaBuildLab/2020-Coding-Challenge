@@ -13,10 +13,6 @@ function addTeamView(id, name, score){
   var increase_button = $("<button class = increase-button>+</button>");
   $(increase_button).click(function(){
     increase_score(id);
-    var team_id = {"id": id}
-    score_template.text(
-      score += 1
-    )
   });
 
   
